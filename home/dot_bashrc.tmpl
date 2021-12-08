@@ -18,8 +18,10 @@ export KEYTIMEOUT=1
 # prompt
 PS1='\[\033[0;34m\][\h:\w]\[\033[00m\] '
 
+{{ if eq .chezmoi.os "linux" }}
 # ls colors
 alias ls='ls --color=auto'
+{{ end }}
 
 # vim everywhere
 set -o vi
@@ -35,6 +37,14 @@ alias gco='git checkout'
 source $HOME/.git-completion.bash
 __git_complete gb _git_branch
 __git_complete gco _git_checkout
+
+{{ if eq .chezmoi.os "darwin" }}
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/homebrew/bin:$PATH"
+{{ end }}
 
 # python interpreter enable readline and vi-mode
 export PYTHONSTARTUP=~/.pythonrc
@@ -62,6 +72,13 @@ if [ -z "$TMUX" ]; then
     tmux attach -t default || tmux new -s default
 fi
 
+{{ if .gpg.key }}
+# gpg-agent
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+{{ else }}
 # ssh keychain
 if [ -f "$HOME/.ssh/id_ed25519" ]; then
     eval $(keychain --eval --timeout 2880 --quiet id_ed25519)
@@ -69,3 +86,4 @@ fi
 if [ -f "$HOME/.ssh/id_rsa" ]; then
     eval $(keychain --eval --timeout 2880 --quiet id_rsa)
 fi
+{{ end -}}

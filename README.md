@@ -30,3 +30,10 @@ chmod +x bootstrap.sh
 wsl.exe --shutdown ubuntu-20.04-wsl
 wsl.exe -d ubuntu-20.04-wsl
 ```
+
+## macOS
+
+1. Install [homebrew](https://docs.brew.sh/Installation)
+2. Change shell to bash: `chsh -s /bin/bash`
+3. Install chezmoi: `brew install chezmoi`
+4. Apply config: `chezmoi init http://github.com/wedaly/workstation.git && chezmoi apply`

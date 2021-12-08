@@ -1,5 +1,10 @@
 [user]
 	name = {{ .gitconfig.name }}
 	email = {{ .gitconfig.email }}
+{{ if .gpg.key }}	signingkey = {{ .gpg.key }}{{ end }}
 [pull]
 	ff = only
+[commit]
+	gpgsign = {{ if .gpg.key }}true{{ else }}false{{ end }}
+[tag]
+	gpgsign = {{ if .gpg.key }}true{{ else }}false{{ end }}

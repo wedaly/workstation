@@ -3,3 +3,7 @@
 [data.gitconfig]
 	name = {{ $gitConfigName | quote }}
 	email = {{ $gitConfigEmail | quote }}
+
+{{ $gpgKey := promptString "[gpg] key" -}}
+[data.gpg]
+	key = {{ $gpgKey | quote }}
