@@ -1,0 +1,71 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# bash aliases
+if [ -e $HOME/.bash_aliases ]; then
+    source $HOME/.bash_aliases
+fi
+
+# history
+export HISTFILESIZE=100000
+export HISTSIZE=100000
+shopt -s histappend
+
+# terminal
+export TERMINAL=xterm
+export KEYTIMEOUT=1
+
+# prompt
+PS1='\[\033[0;34m\][\h:\w]\[\033[00m\] '
+
+# ls colors
+alias ls='ls --color=auto'
+
+# vim everywhere
+set -o vi
+export EDITOR=aretext
+export GIT_EDITOR=aretext
+export SUDO_EDITOR=/usr/bin/vim
+
+# git aliases
+alias gb='git branch'
+alias gco='git checkout'
+
+# git completions
+source $HOME/.git-completion.bash
+__git_complete gb _git_branch
+__git_complete gco _git_checkout
+
+# python interpreter enable readline and vi-mode
+export PYTHONSTARTUP=~/.pythonrc
+
+# rust binaries
+export PATH=$PATH:$HOME/.cargo/bin
+
+# go binaries
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+# fuzzy find
+export FZF_DEFAULT_COMMAND='rg --files'
+
+# devlog
+export DEVLOG_EDITOR=aretext
+alias dle="devlog edit"
+alias dls="devlog status | vim -R -c 'set filetype=devlog' -"
+alias dlt="devlog tail -n 10 | vim -R -c 'set filetype=devlog' -"
+
+# aretext
+alias at="aretext"
+
+# start tmux or attach to existing session
+if [ -z "$TMUX" ]; then
+    tmux attach -t default || tmux new -s default
+fi
+
+# ssh keychain
+if [ -f "$HOME/.ssh/id_ed25519" ]; then
+    eval $(keychain --eval --timeout 2880 --quiet id_ed25519)
+fi
+if [ -f "$HOME/.ssh/id_rsa" ]; then
+    eval $(keychain --eval --timeout 2880 --quiet id_rsa)
+fi

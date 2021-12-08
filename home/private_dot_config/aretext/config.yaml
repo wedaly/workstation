@@ -1,0 +1,136 @@
+# aretext configuration
+
+# Each rule below defines a pattern to match the file path.
+# All matching rules are merged in-order, with configuration from
+# later rules replacing or extending configurations from prior rules.
+#
+# Customization guide: https://aretext.org/docs/customization.html
+# Configuration reference: https://aretext.org/docs/config-reference.html
+
+- name: default
+  pattern: "**"
+  config:
+    autoIndent: false
+    hideDirectories: ["**/.git"]
+    syntaxLanguage: plaintext
+    tabExpand: false
+    tabSize: 4
+    showTabs: false
+    showLineNumbers: false
+    styles:
+      lineNum: {color: "olive"}
+      tokenOperator: {color: "purple"}
+      tokenKeyword: {color: "olive"}
+      tokenNumber: {color: "green"}
+      tokenString: {color: "maroon"}
+      tokenComment: {color: "navy"}
+      tokenCustom1: {color: "teal"}
+      tokenCustom2: {color: "darkblue"}
+      tokenCustom3: {color: "red"}
+      tokenCustom4: {color: "lime"}
+      tokenCustom5: {color: "fuchsia"}
+      tokenCustom6: {color: "aqua"}
+      tokenCustom7: {color: "darkgreen"}
+      tokenCustom8: {color: "darkcyan"}
+
+- name: tmux clipboard commands
+  pattern: "**"
+  config:
+    menuCommands:
+    - name: copy to clipboard
+      shellCmd: printenv SELECTION | tmux load-buffer -
+      mode: silent
+    - name: paste from clipboard
+      shellCmd: tmux show-buffer
+      mode: insert
+
+- name: tmux window commands
+  pattern: "**"
+  config:
+    menuCommands:
+    - name: split window horizontal
+      shellCmd: tmux split-window -h "aretext $FILEPATH"
+      mode: silent
+    - name: split window vertical
+      shellCmd: tmux split-window -v "aretext $FILEPATH"
+      mode: silent
+
+- name: grep command
+  pattern: "**"
+  config:
+    menuCommands:
+      - name: grep word
+        shellCmd: rg $WORD --vimgrep
+        mode: fileLocations
+
+- name: git commit
+  pattern: "**/.git/COMMIT_EDITMSG"
+  config:
+    syntaxLanguage: gitcommit
+
+- name: git rebase
+  pattern: "**/.git/**/git-rebase-todo"
+  config:
+    syntaxLanguage: gitrebase
+
+- name: json
+  pattern: "**/*.json"
+  config:
+    autoIndent: true
+    syntaxLanguage: json
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
+
+- name: yaml
+  pattern: "**/*.yaml"
+  config: &yamlConfig
+    autoIndent: true
+    syntaxLanguage: yaml
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
+
+- name: yml
+  pattern: "**/*.yml"
+  config: *yamlConfig
+
+- name: go
+  pattern: "**/*.go"
+  config:
+    autoIndent: true
+    syntaxLanguage: go
+    tabExpand: false
+    tabSize: 4
+    showLineNumbers: true
+
+- name: python
+  pattern: "**/*.py"
+  config:
+    autoIndent: true
+    syntaxLanguage: python
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
+- name: rust
+  pattern: "**/*.rs"
+  config:
+    autoIndent: true
+    syntaxLanguage: rust
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
+- name: c
+  pattern: "**/*.c"
+  config: &cconfig
+    autoIndent: true
+    syntaxLanguage: c
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
+- name: c-header
+  pattern: "**/*.h"
+  config: *cconfig

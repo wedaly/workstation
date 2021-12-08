@@ -1,0 +1,57 @@
+#!/usr/bin/env sh
+set -e
+
+{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.osRelease.idLike "debian" -}}
+echo "Installing system packages (apt)"
+sudo apt update
+sudo apt install \
+    vim \
+    wget \
+    curl \
+    git \
+    tmux \
+    keychain \
+    tree \
+    jq \
+    ripgrep \
+    fzf \
+    python3 \
+    python3-pip \
+    python3-venv
+{{ end -}}
+
+echo "Installing go"
+if which go; then
+    echo "go is already installed"
+else
+    export GO_VERSION=1.17.4
+    export GO_SHA256SUM=adab2483f644e2f8a10ae93122f0018cef525ca48d0b8764dae87cb5f4fd4206
+    export GO_TARBALL="go${GO_VERSION}.linux-amd64.tar.gz"
+    (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && echo "$GO_SHA256SUM  $GO_TARBALL" | sha256sum --check --status)
+    sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
+fi
+
+echo "Installing aretext"
+if which aretext; then
+    echo "aretext is already installed"
+else
+    export ARETEXT_VERSION=0.3.0
+    export ARETEXT_SHA256SUM=47aecca73c12b604e453aa857f74d50e3f7df92011503fb58b2ec41558258961
+    export ARETEXT_TARBALL="aretext_${ARETEXT_VERSION}_linux_amd64.tar.gz"
+    (cd /tmp && rm -rf "$ARETEXT_TARBALL" && wget "https://github.com/aretext/aretext/releases/download/v${ARETEXT_VERSION}/${ARETEXT_TARBALL}" && echo "$ARETEXT_SHA256SUM  $ARETEXT_TARBALL" | sha256sum --check --status && tar -xvf "$ARETEXT_TARBALL")
+    sudo cp "/tmp/aretext_${ARETEXT_VERSION}_linux_amd64/aretext" /usr/local/bin
+fi
+
+echo "Installing devlog"
+if which devlog; then
+    echo "devlog is already installed"
+else
+    export DEVLOG_VERSION=1.2.0
+    export DEVLOG_SHA256SUM=13ff27ed5862c0336940f6100fe19ba295d0914a5c29986dfe32886bb0cd6ead
+    export DEVLOG_TARBALL="devlog_${DEVLOG_VERSION}_x86_64-unknown-linux-musl.tar.gz"
+    (cd /tmp && rm -rf "$DEVLOG_TARBALL" devlog_${DEVLOG_VERSION} && wget "https://github.com/wedaly/devlog/releases/download/${DEVLOG_VERSION}/${DEVLOG_TARBALL}" && echo "$DEVLOG_SHA256SUM  $DEVLOG_TARBALL" | sha256sum --check --status && mkdir -p devlog_${DEVLOG_VERSION} && tar -xvf "$DEVLOG_TARBALL" -C devlog_${DEVLOG_VERSION})
+    sudo cp "/tmp/devlog_${DEVLOG_VERSION}/devlog" /usr/local/bin
+fi
+
+{{ end -}}

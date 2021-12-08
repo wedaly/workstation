@@ -1,0 +1,5 @@
+{{- $gitConfigName := promptString "[gitconfig] name" -}}
+{{- $gitConfigEmail := promptString "[gitconfig] email" -}}
+[data.gitconfig]
+	name = {{ $gitConfigName | quote }}
+	email = {{ $gitConfigEmail | quote }}
