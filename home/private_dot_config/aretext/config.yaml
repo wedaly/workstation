@@ -11,7 +11,13 @@
   pattern: "**"
   config:
     autoIndent: false
-    hideDirectories: ["**/.git"]
+    hideDirectories:
+      - "**/.git"
+      - "**/.cache"
+      - "**/.local"
+      - "**/.rustup"
+      - "**/go/pkg/mod"
+      - "**/venv"
     syntaxLanguage: plaintext
     tabExpand: false
     tabSize: 4
@@ -32,6 +38,10 @@
       tokenCustom6: {color: "aqua"}
       tokenCustom7: {color: "darkgreen"}
       tokenCustom8: {color: "darkcyan"}
+    menuCommands:
+      - name: strip trailing whitespace
+        shellCmd: sed -i 's/[ \t]*$//' "$FILEPATH"
+        mode: silent
 
 - name: tmux clipboard commands
   pattern: "**"
@@ -95,6 +105,39 @@
   pattern: "**/*.yml"
   config: *yamlConfig
 
+- name: sh
+  pattern: "**/*.sh"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
+- name: html
+  pattern: "**/*.html"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
+
+- name: css
+  pattern: "**/*.css"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
+
+- name: Makefile
+  pattern: "**/Makefile"
+  config:
+    showTabs: true
+    tabExpand: false
+    autoIndent: true
+    tabSize: 4
+    showLineNumbers: true
+
 - name: go
   pattern: "**/*.go"
   config:
@@ -103,6 +146,14 @@
     tabExpand: false
     tabSize: 4
     showLineNumbers: true
+    menuCommands:
+    - name: comment or uncomment selection
+      shellCmd: printenv SELECTION | ~/.config/aretext/scripts/comment-go.py
+      mode: insert
+    - name: insert test snippet
+      shellCmd: cat ~/.config/aretext/snippets/go-test.go
+      mode: insert
+
 
 - name: python
   pattern: "**/*.py"
@@ -134,3 +185,51 @@
 - name: c-header
   pattern: "**/*.h"
   config: *cconfig
+
+- name: devlog
+  pattern: "**/*.devlog"
+  config:
+    syntaxLanguage: devlog
+    autoIndent: true
+    tabExpand: true
+    styles:
+      tokenCustom1: {color: "olive"}  # "to do" task
+      tokenCustom2: {color: "green"}  # "in progress" task
+      tokenCustom3: {color: "teal"}   # "completed" task
+      tokenCustom4: {color: "red"}    # "blocked" task
+      tokenCustom5: {color: "purple"} # code block
+      tokenCustom6: {color: "purple"} # tilde separator
+
+- name: devlog-git
+  pattern: "**/repos/devlog/**"
+  config:
+    autoIndent: true
+    hideDirectories:
+    - "**/target"
+
+- name: aretext
+  pattern: "**/aretext/**"
+  config:
+    menuCommands:
+    - name: build
+      shellCmd: make build | less
+    - name: test
+      shellCmd: make test | less
+    - name: fmt all
+      shellCmd: make fmt
+    - name: git commit wip
+      shellCmd: git add -u && git commit -m 'wip'
+
+- name: aretext-go
+  pattern: "**/aretext/**/*.go"
+  config:
+    menuCommands:
+    - name: fmt file
+      shellCmd: goimports -w -local "github.com/aretext" $FILEPATH | less
+
+- name: aretext-markdown
+  pattern: "**/aretext/**/*.md"
+  config:
+    menuCommands:
+    - name: fmt file
+      shellCmd: markdownfmt -w $FILEPATH

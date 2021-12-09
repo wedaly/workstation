@@ -7,6 +7,16 @@ After bootstrapping an environment (see below), use [chezmoi](https://github.com
 
 # Bootstrap
 
+## Fedora
+
+Run the bootstrap script:
+```
+cd /tmp
+curl https://raw.githubusercontent.com/wedaly/workstation/main/bootstrap/fedora.sh > bootstrap.sh
+chmod +x bootstrap.sh
+./bootstrap.sh
+```
+
 ## Ubuntu on WSL2
 
 1. Download an image like `ubuntu-20.04-server-cloudimg-amd64-wsl.rootfs.tar.gz` from [https://cloud-images.ubuntu.com/releases/](https://cloud-images.ubuntu.com/releases/).

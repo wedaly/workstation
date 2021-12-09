@@ -16,7 +16,7 @@ export TERMINAL=xterm
 export KEYTIMEOUT=1
 
 # prompt
-PS1='\[\033[0;34m\][\h:\w]\[\033[00m\] '
+PS1='\[\033[0;34m\][\w]\[\033[00m\] '
 
 {{ if eq .chezmoi.os "linux" }}
 # ls colors
@@ -49,8 +49,12 @@ export PATH="/opt/homebrew/bin:$PATH"
 # python interpreter enable readline and vi-mode
 export PYTHONSTARTUP=~/.pythonrc
 
-# rust binaries
-export PATH=$PATH:$HOME/.cargo/bin
+# rust
+if [ -e $HOME/.cargo/env ]; then
+    source $HOME/.cargo/env # rustup
+else
+    export PATH=$PATH:$HOME/.cargo/bin
+fi
 
 # go binaries
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
@@ -67,10 +71,10 @@ alias dlt="devlog tail -n 10 | vim -R -c 'set filetype=devlog' -"
 # aretext
 alias at="aretext"
 
-# start tmux or attach to existing session
-if [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+# firefox / wayland
+{{ if eq .chezmoi.os "linux" }}
+export MOZ_ENABLE_WAYLAND=1
+{{ end }}
 
 {{ if .gpg.key }}
 # gpg-agent
@@ -87,3 +91,8 @@ if [ -f "$HOME/.ssh/id_rsa" ]; then
     eval $(keychain --eval --timeout 2880 --quiet id_rsa)
 fi
 {{ end -}}
+
+# start tmux or attach to existing session
+if [ -z "$TMUX" ]; then
+    tmux attach -t default || tmux new -s default
+fi
