@@ -71,8 +71,8 @@ alias dlt="devlog tail -n 10 | vim -R -c 'set filetype=devlog' -"
 # aretext
 alias at="aretext"
 
-# firefox / wayland
 {{ if eq .chezmoi.os "linux" }}
+# firefox / wayland
 export MOZ_ENABLE_WAYLAND=1
 {{ end }}
 
