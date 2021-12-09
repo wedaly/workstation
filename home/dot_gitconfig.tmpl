@@ -1,6 +1,8 @@
 [user]
 	name = {{ .gitconfig.name }}
 	email = {{ .gitconfig.email }}
+[core]
+	excludesfile = ~/.gitignore
 {{ if .gpg.key }}	signingkey = {{ .gpg.key }}{{ end }}
 [pull]
 	ff = only
