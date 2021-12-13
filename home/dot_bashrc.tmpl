@@ -65,8 +65,8 @@ export FZF_DEFAULT_COMMAND='rg --files'
 # devlog
 export DEVLOG_EDITOR=aretext
 alias dle="devlog edit"
-alias dls="devlog status | vim -R -c 'set filetype=devlog' -"
-alias dlt="devlog tail -n 10 | vim -R -c 'set filetype=devlog' -"
+alias dls="devlog status | less"
+alias dlt="devlog tail -n 10 | less"
 
 # aretext
 alias at="aretext"
