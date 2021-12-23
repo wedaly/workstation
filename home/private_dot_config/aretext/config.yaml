@@ -233,3 +233,10 @@
     menuCommands:
     - name: fmt file
       shellCmd: markdownfmt -w $FILEPATH
+
+- name: gospelunk-go
+  pattern: "**/gospelunk/**/*.go"
+  config:
+    menuCommands:
+    - name: fmt file
+      shellCmd: goimports -w $FILEPATH | less
