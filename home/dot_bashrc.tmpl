@@ -44,6 +44,9 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/bin:$PATH"
+
+# xdg config
+export XDG_CONFIG_HOME=$HOME/.config
 {{ end }}
 
 # python interpreter enable readline and vi-mode
