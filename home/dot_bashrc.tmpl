@@ -71,6 +71,13 @@ alias dle="devlog edit"
 alias dls="devlog status | less"
 alias dlt="devlog tail -n 10 | less"
 
+# gospelunk
+alias goindex='gospelunk index -i -t ./...'
+
+gofind () {
+	less $(gospelunk find -i -f {{"+{{.LineNum}} {{.Path|RelPath}} {{.Kind}} {{.Name}}"}} $@ | fzf | cut -d " " -f 1-2)
+}
+
 # aretext
 alias at="aretext"
 

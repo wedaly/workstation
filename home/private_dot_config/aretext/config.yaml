@@ -154,7 +154,7 @@
       shellCmd: cat ~/.config/aretext/snippets/go-test.go
       mode: insert
     - name: gospelunk index
-      shellCmd: gospelunk index -i ./... | less
+      shellCmd: gospelunk index -i -t ./... | less
     - name: gospelunk find
       shellCmd: gospelunk find -i -f "{{.Path|RelPath}}:{{.LineNum}}:{{.Kind}} {{.Name}}" "^(.+\.)?${WORD}$" $FILEPATH
       mode: fileLocations
