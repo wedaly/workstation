@@ -217,12 +217,16 @@
     menuCommands:
     - name: build
       shellCmd: make build | less
+      save: true
     - name: test
       shellCmd: make test | less
+      save: true
     - name: fmt all
       shellCmd: make fmt
+      save: true
     - name: git commit wip
       shellCmd: git add -u && git commit -m 'wip'
+      save: true
 
 - name: aretext-go
   pattern: "**/aretext/**/*.go"
@@ -230,6 +234,7 @@
     menuCommands:
     - name: fmt file
       shellCmd: goimports -w -local "github.com/aretext" $FILEPATH | less
+      save: true
 
 - name: aretext-markdown
   pattern: "**/aretext/**/*.md"
@@ -237,6 +242,7 @@
     menuCommands:
     - name: fmt file
       shellCmd: markdownfmt -w $FILEPATH
+      save: true
 
 - name: gospelunk-go
   pattern: "**/gospelunk/**/*.go"
@@ -244,3 +250,4 @@
     menuCommands:
     - name: fmt file
       shellCmd: goimports -w $FILEPATH | less
+      save: true
