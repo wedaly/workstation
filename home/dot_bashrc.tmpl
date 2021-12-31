@@ -75,7 +75,10 @@ alias dlt="devlog tail -n 10 | less"
 alias goindex='gospelunk index -i -t ./...'
 
 gofind () {
-	gospelunk find -i -f "{{"-line={{.LineNum}} {{.Path|RelPath}} {{.Kind}} {{.Name}}"}}" $@ | fzf | cut -d " " -f 1-2 | xargs aretext
+    gospelunk find -i -f "{{"-line={{.LineNum}} {{.Path|RelPath}} {{.Kind}} {{.Name}}"}}" $@ \
+    | fzf \
+    | cut -d " " -f 1-2 \
+    | xargs aretext
 }
 
 # aretext
