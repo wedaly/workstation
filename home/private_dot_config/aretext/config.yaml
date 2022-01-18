@@ -42,6 +42,9 @@
       - name: strip trailing whitespace
         shellCmd: sed -i 's/[ \t]*$//' "$FILEPATH"
         mode: silent
+      - name: git commit wip
+        shellCmd: git add -u && git commit -m 'wip'
+        save: true
 
 - name: tmux clipboard commands
   pattern: "**"
@@ -223,9 +226,6 @@
       save: true
     - name: fmt all
       shellCmd: make fmt
-      save: true
-    - name: git commit wip
-      shellCmd: git add -u && git commit -m 'wip'
       save: true
 
 - name: aretext-go
