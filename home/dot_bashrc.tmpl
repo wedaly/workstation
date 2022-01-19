@@ -86,6 +86,13 @@ gofind () {
 # aretext
 alias at="aretext"
 
+# kubectl
+if which kubectl; then
+    source <(kubectl completion bash)
+    alias k=kubectl
+    complete -F __start_kubectl k
+fi
+
 {{ if eq .chezmoi.os "linux" }}
 # firefox / wayland
 export MOZ_ENABLE_WAYLAND=1
