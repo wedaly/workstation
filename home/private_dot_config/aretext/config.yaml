@@ -42,6 +42,8 @@
       - name: strip trailing whitespace
         shellCmd: sed -i 's/[ \t]*$//' "$FILEPATH"
         mode: silent
+      - name: git blame
+        shellCmd: git blame "$FILEPATH" | less
       - name: git commit wip
         shellCmd: git add -u && git commit -m 'wip'
         save: true
