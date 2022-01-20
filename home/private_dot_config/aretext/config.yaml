@@ -159,9 +159,9 @@
       shellCmd: cat ~/.config/aretext/snippets/go-test.go
       mode: insert
     - name: gospelunk index
-      shellCmd: gospelunk index -i -t $(dirname "$FILEPATH") | less
+      shellCmd: ~/.config/aretext/scripts/gospelunk-index-file.py "$FILEPATH" | less
     - name: gospelunk find
-      shellCmd: gospelunk find -i -f "{{.Path|RelPath}}:{{.LineNum}}:{{.Kind}} {{.Name}}" "^(.+\.)?${WORD}$" $FILEPATH
+      shellCmd: ~/.config/aretext/scripts/gospelunk-find-file.py "$WORD" "$FILEPATH"
       mode: fileLocations
 
 - name: python
