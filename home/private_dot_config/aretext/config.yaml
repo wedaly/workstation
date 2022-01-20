@@ -18,6 +18,7 @@
       - "**/.rustup"
       - "**/go/pkg/mod"
       - "**/venv"
+      - "**/.kube/cache"
     syntaxLanguage: plaintext
     tabExpand: false
     tabSize: 4
