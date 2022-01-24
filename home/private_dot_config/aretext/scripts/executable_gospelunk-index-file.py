@@ -16,7 +16,7 @@ def main():
         path = os.path.dirname(path)
 
     cwd = path
-    index_pkg_path = os.path.relpath(path, cwd)
+    index_pkg_path = os.path.join(os.path.relpath(path, cwd), "...")
     print("Indexing {} from directory {}".format(path, cwd))
     subprocess.run(["gospelunk", "index", "-i", "-t", index_pkg_path], cwd=cwd)
 
