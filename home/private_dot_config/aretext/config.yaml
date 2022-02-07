@@ -254,3 +254,9 @@
     - name: fmt file
       shellCmd: goimports -w $FILEPATH | less
       save: true
+
+- name: kubernetes
+  pattern: "**/kubernetes/**"
+  config:
+    hideDirectories:
+      - "**/_output"
