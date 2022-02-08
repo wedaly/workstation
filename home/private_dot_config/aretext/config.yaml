@@ -196,6 +196,15 @@
   pattern: "**/*.h"
   config: *cconfig
 
+- name: protobuf
+  pattern: "**/*.proto"
+  config:
+    autoIndent: true
+    syntaxLanguage: protobuf
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
+
 - name: devlog
   pattern: "**/*.devlog"
   config:
