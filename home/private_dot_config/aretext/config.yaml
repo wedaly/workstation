@@ -211,6 +211,7 @@
     syntaxLanguage: devlog
     autoIndent: true
     tabExpand: true
+    tabSize: 2
     styles:
       tokenCustom1: {color: "olive"}  # "to do" task
       tokenCustom2: {color: "green"}  # "in progress" task
