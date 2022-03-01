@@ -32,7 +32,7 @@
       tokenString: {color: "maroon"}
       tokenComment: {color: "navy"}
       tokenCustom1: {color: "teal"}
-      tokenCustom2: {color: "darkblue"}
+      tokenCustom2: {color: "fuchsia"}
       tokenCustom3: {color: "red"}
       tokenCustom4: {color: "lime"}
       tokenCustom5: {color: "aqua"}
