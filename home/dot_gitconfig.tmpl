@@ -12,3 +12,5 @@
 	gpgsign = {{ if .gpg.key }}true{{ else }}false{{ end }}
 [init]
 	defaultBranch = main
+[diff]
+	algorithm = patience
