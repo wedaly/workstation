@@ -265,6 +265,13 @@
       shellCmd: goimports -w $FILEPATH | less
       save: true
 
+- name: gopath
+  pattern: "**/go/src/**/*.go"
+  config:
+    menuCommands:
+      - name: fmt file
+        shellCmd: goimports -w $FILEPATH | less
+
 - name: kubernetes
   pattern: "**/kubernetes/**"
   config:
