@@ -34,18 +34,6 @@ sudo dnf install \
     python3
 {{ end -}}
 
-echo "Installing go"
-if which go; then
-    echo "go is already installed"
-else
-    export GO_VERSION=1.17.4
-    export GO_SHA256SUM=adab2483f644e2f8a10ae93122f0018cef525ca48d0b8764dae87cb5f4fd4206
-    export GO_TARBALL="go${GO_VERSION}.linux-amd64.tar.gz"
-    (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && echo "$GO_SHA256SUM  $GO_TARBALL" | sha256sum --check --status)
-    sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
-    export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
-fi
-
 {{ else if eq .chezmoi.os "darwin" -}}
 echo "Installing system packages (brew)"
 brew install --quiet \
@@ -61,9 +49,23 @@ brew install --quiet \
     ripgrep \
     fzf \
     gnupg \
-    python3 \
-    go@1.17
+    python3
 {{ end -}}
+
+echo "Installing go"
+if which go; then
+    echo "go is already installed"
+	go version
+else
+    export GO_VERSION=1.18
+    export GO_SHA256SUM=e85278e98f57cdb150fe8409e6e5df5343ecb13cebf03a5d5ff12bd55a80264f
+	export GO_OS={{ .chezmoi.os }}
+	export GO_ARCH={{ .chezmoi.arch }}
+    export GO_TARBALL="go${GO_VERSION}.${GO_OS}-${GO_ARCH}.tar.gz"
+    (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/${GO_TARBALL} && echo "$GO_SHA256SUM  $GO_TARBALL" | sha256sum --check --status)
+    sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
+    export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+fi
 
 echo "Installing aretext"
 if which aretext; then
