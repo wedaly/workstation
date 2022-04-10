@@ -17,6 +17,32 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
+To use an existing Yubikey:
+```
+# pcscd fights with another daemon on Fedora 34/35, so disable it.
+sudo systemctl disable pcscd
+sudo systemctl stop pcscd
+
+# Workaround for "no keyserver available" error.
+gpgconf --kill dirmngr
+
+export KEYID=0xC1CAD9CDB82E69DE
+gpg --keyserver pgp.mit.edu --recv-key $KEYID
+
+# Select all keys, then "trust", then choose "ultimate"
+gpg --edit-key $KEYID
+
+gpg --card-status
+gpg --list-secret-keys
+```
+
+Workaround for issue with Firefox:
+```
+# Add this to /usr/share/p11-kit/modules/opensc.module
+# workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1892137
+disable-in: firefox
+```
+
 ## Ubuntu on WSL2
 
 1. Download an image like `ubuntu-20.04-server-cloudimg-amd64-wsl.rootfs.tar.gz` from [https://cloud-images.ubuntu.com/releases/](https://cloud-images.ubuntu.com/releases/).
