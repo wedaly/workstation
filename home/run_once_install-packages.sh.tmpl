@@ -16,6 +16,7 @@ sudo apt install \
     jq \
     ripgrep \
     fzf \
+    htop \
     python3 \
     python3-pip
 {{ else if eq .chezmoi.osRelease.id "fedora" -}}
@@ -31,6 +32,7 @@ sudo dnf install \
     jq \
     ripgrep \
     fzf \
+    htop \
     python3
 {{ end -}}
 
