@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
 from contextlib import contextmanager
-from datetime import date
+from datetime import date, datetime
 import os
-import shutil
 import subprocess
 import sys
 
@@ -21,8 +20,7 @@ DEFAULT_DEVLOG_DIR = os.path.expanduser("~/devlogs")
 DEFAULT_EDITOR = "nano"
 
 DEVLOG_DIR = os.environ.get("DEVLOG_DIR", DEFAULT_DEVLOG_DIR)
-EDITOR = shutil.which(os.environ.get("EDITOR", DEFAULT_EDITOR))
-GIT = shutil.which("git")
+EDITOR = os.environ.get("EDITOR", DEFAULT_EDITOR)
 
 
 def main():
@@ -63,10 +61,24 @@ def run_edit_cmd():
 
 
 def run_tail_cmd():
-    print("TODO")
+    with chdir(DEVLOG_DIR):
+        paths = []
+        for root, dir, files in os.walk("."):
+            for name in files:
+                if name.endswith(".md"):
+                    paths.append(os.path.join(root, name))
+        paths.sort(reverse=True)
+
+        for p in paths:
+            date = datetime.strptime(p, "./%Y/%m/%d.md").strftime("%Y-%m-%d")
+            sys.stdout.write("======= {} ========\n".format(date))
+            with open(p) as f:
+                for line in f:
+                    sys.stdout.write(line)
 
 
 def run_tidy_cmd():
+    # TODO: read todo.txt, filter completed, sort by priority, group by project, write output
     print("TODO")
 
 
@@ -81,7 +93,7 @@ def run_sync_cmd():
 
 def git_cmd(args):
     print("git {}".format(" ".join(args)))
-    subprocess.run([GIT] + args)
+    subprocess.run(["git"] + args)
 
 
 def open_editor(path):
