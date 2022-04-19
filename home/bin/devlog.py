@@ -17,11 +17,12 @@ COMMANDS:
     sync    Commit and push the devlog git repository.
 """
 
-DEFAULT_DEVLOG_DIR = "~/devlogs"
+DEFAULT_DEVLOG_DIR = os.path.expanduser("~/devlogs")
 DEFAULT_EDITOR = "nano"
 
 DEVLOG_DIR = os.environ.get("DEVLOG_DIR", DEFAULT_DEVLOG_DIR)
 EDITOR = shutil.which(os.environ.get("EDITOR", DEFAULT_EDITOR))
+GIT = shutil.which("git")
 
 
 def main():
@@ -70,7 +71,17 @@ def run_tidy_cmd():
 
 
 def run_sync_cmd():
-    print("TODO")
+    with chdir(DEVLOG_DIR):
+        git_cmd(["add", "."])
+        git_cmd(["commit", "-m", "devlog sync"])
+        git_cmd(["fetch", "origin"])
+        git_cmd(["rebase", "origin/master"])
+        git_cmd(["push", "origin"])
+
+
+def git_cmd(args):
+    print("git {}".format(" ".join(args)))
+    subprocess.run([GIT] + args)
 
 
 def open_editor(path):
