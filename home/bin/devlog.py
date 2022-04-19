@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from contextlib import contextmanager
 from datetime import date
 import os
 import shutil
@@ -49,7 +50,7 @@ def print_usage_and_exit():
 
 def run_todo_cmd():
     path = os.path.join(DEVLOG_DIR, "todo.txt")
-    subprocess.run([EDITOR, path])
+    open_editor(path)
 
 
 def run_edit_cmd():
@@ -57,7 +58,7 @@ def run_edit_cmd():
     month_dir = os.path.join(DEVLOG_DIR, str(today.year), "{:02}".format(today.month))
     os.makedirs(month_dir, exist_ok=True)
     day_path = os.path.join(month_dir, "{:02}.md".format(today.day))
-    subprocess.run([EDITOR, day_path])
+    open_editor(day_path)
 
 
 def run_tail_cmd():
@@ -70,6 +71,21 @@ def run_tidy_cmd():
 
 def run_sync_cmd():
     print("TODO")
+
+
+def open_editor(path):
+    with chdir(DEVLOG_DIR):
+        subprocess.run([EDITOR, path])
+
+
+@contextmanager
+def chdir(path):
+    wd = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(wd)
 
 
 if __name__ == "__main__":
