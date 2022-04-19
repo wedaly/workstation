@@ -22,6 +22,7 @@ DEFAULT_EDITOR = "nano"
 DEVLOG_DIR = os.environ.get("DEVLOG_DIR", DEFAULT_DEVLOG_DIR)
 EDITOR = os.environ.get("EDITOR", DEFAULT_EDITOR)
 TODO_PATH = os.path.join(DEVLOG_DIR, "todo.txt")
+DONE_PATH = os.path.join(DEVLOG_DIR, "done.txt")
 
 
 def main():
@@ -80,13 +81,18 @@ def run_tail_cmd():
 
 
 def run_tidy_cmd():
+    complete_tasks = []
     incomplete_tasks = []
     with open(TODO_PATH) as f:
         for line in f:
             if line.startswith("x "):
-                print("Completed: {}".format(line[2:].strip()))
+                complete_tasks.append(line)
             else:
                 incomplete_tasks.append(line)
+
+    with open(DONE_PATH, "w+") as f:
+        for line in complete_tasks:
+            f.write(line)
 
     with open(TODO_PATH, "w") as f:
         for line in incomplete_tasks:

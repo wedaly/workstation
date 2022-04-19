@@ -207,27 +207,20 @@
 
 - name: todo
   pattern: "**/*.todo"
-  config:
+  config: &todotxt
     autoIndent: true
     syntaxLanguage: todotxt
     tabExpand: true
     tabSize: 4
     showLineNumbers: true
 
-- name: devlog
-  pattern: "**/*.devlog"
-  config:
-    syntaxLanguage: devlog
-    autoIndent: true
-    tabExpand: true
-    tabSize: 2
-    styles:
-      tokenCustom1: {color: "olive"}  # "to do" task
-      tokenCustom2: {color: "green"}  # "in progress" task
-      tokenCustom3: {color: "teal"}   # "completed" task
-      tokenCustom4: {color: "red"}    # "blocked" task
-      tokenCustom5: {color: "purple"} # code block
-      tokenCustom6: {color: "purple"} # tilde separator
+- name: devlog-todo
+  pattern: "**/devlogs/todo.txt"
+  config: *todotxt
+
+- name: devlog-done
+  pattern: "**/devlogs/done.txt"
+  config: *todotxt
 
 - name: devlog-git
   pattern: "**/repos/devlog/**"
