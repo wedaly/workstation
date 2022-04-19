@@ -168,6 +168,8 @@ def migrate_devlog(path):
                 f.write(entry["content"])
                 f.write("\n")
 
+    os.remove(path)
+
 
 def git_cmd(args):
     print("git {}".format(" ".join(args)))
