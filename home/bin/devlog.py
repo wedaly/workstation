@@ -12,7 +12,7 @@ COMMANDS:
     todo    Open tasks in an editor.
     edit    Open today's devlog entry in an editor.
     tail    Print last devlog entries to stdout.
-    tidy    Remove completed tasks.
+    tidy    Move completed tasks to done file.
     sync    Commit and push the devlog git repository.
 """
 
@@ -90,8 +90,10 @@ def run_tidy_cmd():
             else:
                 incomplete_tasks.append(line)
 
+    complete_date = date.today().strftime("%Y-%m-%d")
     with open(DONE_PATH, "w+") as f:
         for line in complete_tasks:
+            line = line.strip() + " completed:{}\n".format(complete_date)
             f.write(line)
 
     with open(TODO_PATH, "w") as f:
