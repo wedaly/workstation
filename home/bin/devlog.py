@@ -12,7 +12,7 @@ COMMANDS:
     todo    Open tasks in an editor.
     edit    Open today's devlog entry in an editor.
     tail    Print last devlog entries to stdout.
-    tidy    Remove completed tasks and sort tasks.
+    tidy    Remove completed tasks.
     sync    Commit and push the devlog git repository.
 """
 
@@ -21,6 +21,7 @@ DEFAULT_EDITOR = "nano"
 
 DEVLOG_DIR = os.environ.get("DEVLOG_DIR", DEFAULT_DEVLOG_DIR)
 EDITOR = os.environ.get("EDITOR", DEFAULT_EDITOR)
+TODO_PATH = os.path.join(DEVLOG_DIR, "todo.txt")
 
 
 def main():
@@ -48,8 +49,7 @@ def print_usage_and_exit():
 
 
 def run_todo_cmd():
-    path = os.path.join(DEVLOG_DIR, "todo.txt")
-    open_editor(path)
+    open_editor(TODO_PATH)
 
 
 def run_edit_cmd():
@@ -67,19 +67,30 @@ def run_tail_cmd():
             for name in files:
                 if name.endswith(".md"):
                     paths.append(os.path.join(root, name))
-        paths.sort(reverse=True)
 
+        # iterate descending by date
+        paths.sort(reverse=True)
         for p in paths:
             date = datetime.strptime(p, "./%Y/%m/%d.md").strftime("%Y-%m-%d")
             sys.stdout.write("======= {} ========\n".format(date))
             with open(p) as f:
                 for line in f:
                     sys.stdout.write(line)
+            sys.stdout.write("\n")
 
 
 def run_tidy_cmd():
-    # TODO: read todo.txt, filter completed, sort by priority, group by project, write output
-    print("TODO")
+    incomplete_tasks = []
+    with open(TODO_PATH) as f:
+        for line in f:
+            if line.startswith("x "):
+                print("Completed: {}".format(line[2:].strip()))
+            else:
+                incomplete_tasks.append(line)
+
+    with open(TODO_PATH, "w") as f:
+        for line in incomplete_tasks:
+            f.write(line)
 
 
 def run_sync_cmd():
