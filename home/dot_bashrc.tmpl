@@ -41,6 +41,9 @@ __git_complete gco _git_checkout
 {{ if eq .chezmoi.os "darwin" }}
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# scripts
+export PATH="$HOME/bin:$PATH"
+
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/bin:$PATH"
@@ -64,12 +67,6 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
 # fuzzy find
 export FZF_DEFAULT_COMMAND='rg --files'
-
-# devlog
-export DEVLOG_EDITOR=aretext
-alias dle="devlog edit"
-alias dls="devlog status | less"
-alias dlt="devlog tail -n 10 | less"
 
 # gospelunk
 goindex () {
