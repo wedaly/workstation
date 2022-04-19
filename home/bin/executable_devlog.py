@@ -95,7 +95,7 @@ def run_tidy_cmd():
                 incomplete_tasks.append(line)
 
     complete_date = date.today().strftime("%Y-%m-%d")
-    with open(DONE_PATH, "w+") as f:
+    with open(DONE_PATH, "a") as f:
         for line in complete_tasks:
             line = line.strip() + " completed:{}\n".format(complete_date)
             f.write(line)
