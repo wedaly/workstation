@@ -205,6 +205,14 @@
     tabSize: 2
     showLineNumbers: true
 
+- name: markdown
+  pattern: "**/*.md"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
 - name: todo
   pattern: "**/*.todo"
   config: &todotxt
