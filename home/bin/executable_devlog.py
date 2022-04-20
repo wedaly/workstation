@@ -5,7 +5,6 @@ from datetime import date, datetime
 import os
 import subprocess
 import sys
-import textwrap
 
 USAGE = """devlog <command>
 
@@ -15,7 +14,6 @@ COMMANDS:
     tail     Print last devlog entries to stdout.
     tidy     Move completed tasks to done file.
     sync     Commit and push the devlog git repository.
-    migrate  Migrate from old devlog format.
 """
 
 DEFAULT_DEVLOG_DIR = os.path.expanduser("~/devlogs")
@@ -118,63 +116,6 @@ def run_sync_cmd():
         git_cmd(["fetch", "origin"])
         git_cmd(["rebase", "origin/master"])
         git_cmd(["push", "origin"])
-
-
-def run_migrate_cmd():
-    with chdir(DEVLOG_DIR):
-       for root, dir, files in os.walk("."):
-            for name in files:
-                if name.endswith(".devlog"):
-                    path = os.path.join(root, name)
-                    migrate_devlog(path)
-
-
-def migrate_devlog(path):
-    date = None
-    entries = []
-    line_num = 0
-    with open(path) as f:
-        for line in f:
-            if line_num == 0:
-                try:
-                    date = datetime.strptime(line.strip(), "%Y-%m-%d")
-                except:
-                    print("Could not convert {}".format(path))
-                    return
-            else:
-                if line.startswith("+ ") or line.startswith("- ") or line.startswith("* ") or line.startswith("^ "):
-                    entries.append({"heading": line[2:].strip(), "lines": []})
-                elif line.startswith("~~~"):
-                    entries.append({"heading": "", "lines": []})
-                elif len(entries) > 0:
-                    entries[-1]["lines"].append(line.rstrip())
-
-            line_num += 1
-
-    real_entries = []
-    for entry in entries:
-        x = {
-            "heading": entry["heading"],
-            "content": textwrap.dedent("\n".join(entry["lines"])),
-        }
-        if len(x["content"].strip()) > 0:
-            real_entries.append(x)
-
-    if len(real_entries) == 0:
-        return
-
-    target_dir = os.path.join(str(date.year), "{:02}".format(date.month))
-    os.makedirs(target_dir, exist_ok=True)
-    target_path = os.path.join(target_dir, "{:02}.md".format(date.day))
-    with open(target_path, "w") as f:
-        for entry in real_entries:
-            if len(entry["content"].replace("\n", "").strip()) > 0:
-                if entry["heading"]:
-                    f.write("# {}\n\n".format(entry["heading"]))
-                f.write(entry["content"])
-                f.write("\n")
-
-    os.remove(path)
 
 
 def git_cmd(args):
