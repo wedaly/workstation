@@ -75,16 +75,19 @@ def run_tail_cmd():
 
         # iterate descending by date
         paths.sort(reverse=True)
-        for p in paths:
-            date = datetime.strptime(p, "./%Y/%m/%d.md").strftime("%Y-%m-%d")
-            sys.stdout.write("======= {} ========\n".format(date))
-            with open(p) as f:
-                for line in f:
-                    try:
+        try:
+            for p in paths:
+                try:
+                    date = datetime.strptime(p, "./%Y/%m/%d.md").strftime("%Y-%m-%d")
+                except:
+                    continue
+                sys.stdout.write("======= {} ========\n".format(date))
+                with open(p) as f:
+                    for line in f:
                         sys.stdout.write(line)
-                    except BrokenPipeError:
-                        return
-            sys.stdout.write("\n")
+                sys.stdout.write("\n")
+        except BrokenPipeError:
+            sys.stdout = None # suppress BrokenPipeError when Python tries to flush stdout.
 
 
 def run_tidy_cmd():
