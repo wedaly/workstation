@@ -38,11 +38,11 @@ source $HOME/.git-completion.bash
 __git_complete gb _git_branch
 __git_complete gco _git_checkout
 
-{{ if eq .chezmoi.os "darwin" }}
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
 # scripts
 export PATH="$HOME/bin:$PATH"
+
+{{ if eq .chezmoi.os "darwin" }}
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
