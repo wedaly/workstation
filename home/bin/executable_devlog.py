@@ -80,7 +80,10 @@ def run_tail_cmd():
             sys.stdout.write("======= {} ========\n".format(date))
             with open(p) as f:
                 for line in f:
-                    sys.stdout.write(line)
+                    try:
+                        sys.stdout.write(line)
+                    except BrokenPipeError:
+                        return
             sys.stdout.write("\n")
 
 
