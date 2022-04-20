@@ -40,8 +40,6 @@ def main():
         run_tidy_cmd()
     elif cmd == "sync":
         run_sync_cmd()
-    elif cmd == "migrate":
-        run_migrate_cmd()
     else:
         print_usage_and_exit()
 
