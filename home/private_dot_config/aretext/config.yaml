@@ -216,7 +216,13 @@
 
 - name: devlog-todo
   pattern: "**/devlogs/todo.txt"
-  config: *todotxt
+  config:
+    <<: *todotxt
+    menuCommands:
+      - name: devlog tidy
+        shellCmd: devlog.py tidy
+        save: true
+        mode: silent
 
 - name: devlog-done
   pattern: "**/devlogs/done.txt"
