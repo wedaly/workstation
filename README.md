@@ -19,9 +19,8 @@ chmod +x bootstrap.sh
 
 To use an existing Yubikey:
 ```
-# pcscd fights with another daemon on Fedora 34/35, so disable it.
-sudo systemctl disable pcscd
-sudo systemctl stop pcscd
+# pcscd fights with another daemon on Fedora 34/35, so may need to restart it.
+sudo systemctl restart pcscd
 
 # Workaround for "no keyserver available" error.
 gpgconf --kill dirmngr
