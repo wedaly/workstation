@@ -19,7 +19,9 @@ chmod +x bootstrap.sh
 
 To use an existing Yubikey:
 ```
-# pcscd fights with another daemon on Fedora 34/35, so may need to restart it.
+# pcscd fights with opensc on Fedora 34/35
+# https://bugzilla.redhat.com/show_bug.cgi?id=1941346
+sudo dnf remove opensc
 sudo systemctl restart pcscd
 
 # Workaround for "no keyserver available" error.
