@@ -173,6 +173,10 @@
     tabExpand: true
     tabSize: 4
     showLineNumbers: true
+    menuCommands:
+      - name: insert python script snippet
+        shellCmd: cat ~/.config/aretext/snippets/python-script.py
+        mode: insert
 
 - name: rust
   pattern: "**/*.rs"
