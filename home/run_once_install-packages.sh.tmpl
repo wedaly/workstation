@@ -61,8 +61,8 @@ if which go; then
     echo "go is already installed"
 	go version
 else
-    export GO_VERSION=1.18
-    export GO_SHA256SUM=e85278e98f57cdb150fe8409e6e5df5343ecb13cebf03a5d5ff12bd55a80264f
+    export GO_VERSION=1.18.2
+    export GO_SHA256SUM=e54bec97a1a5d230fc2f9ad0880fcbabb5888f30ed9666eca4a91c5a32e86cbc
 	export GO_OS={{ .chezmoi.os }}
 	export GO_ARCH={{ .chezmoi.arch }}
     export GO_TARBALL="go${GO_VERSION}.${GO_OS}-${GO_ARCH}.tar.gz"
