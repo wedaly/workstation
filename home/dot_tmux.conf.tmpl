@@ -2,7 +2,11 @@
 set -g default-shell /bin/bash
 
 # terminal
+{{- if eq .chezmoi.os "darwin" }}
+set -g default-terminal "screen-256color"
+{{- else }}
 set -g default-terminal "tmux"
+{{- end }}
 
 # status line
 set -g status-left ""
