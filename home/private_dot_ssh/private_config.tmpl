@@ -1,3 +1,7 @@
 {{- if .gpg.key }}
 Match host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"
 {{ end -}}
+
+Host ssh.dev.azure.com
+  PubkeyAcceptedKeyTypes=ssh-rsa
+  HostkeyAlgorithms +ssh-rsa
