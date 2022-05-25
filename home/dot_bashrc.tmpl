@@ -62,8 +62,9 @@ else
     export PATH=$PATH:$HOME/.cargo/bin
 fi
 
-# go binaries
+# go
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+export GOPROXY=direct
 
 # fuzzy find
 export FZF_DEFAULT_COMMAND='rg --files'
