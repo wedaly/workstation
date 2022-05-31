@@ -213,9 +213,15 @@
   pattern: "**/*.md"
   config:
     autoIndent: true
+    syntaxLanguage: markdown
     tabExpand: true
     tabSize: 4
     showLineNumbers: true
+    styles:
+      tokenCustom1: {color: "teal", bold: true}        # Heading
+      tokenCustom2: {color: "default", italic: true}   # Emphasis
+      tokenCustom3: {color: "default", bold: true}     # Strong emphasis
+      tokenCustom4: {color: "purple", underline: true} # Link
 
 - name: todo
   pattern: "**/*.todo"
