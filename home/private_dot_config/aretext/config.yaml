@@ -48,6 +48,8 @@
       - name: git commit wip
         shellCmd: git add -u && git commit -m 'wip'
         save: true
+      - name: exec in shell
+        shellCmd: printenv SELECTION | tmux load-buffer - && tmux new-window -S -n aretext-shell && tmux paste-buffer
 
 - name: tmux clipboard commands
   pattern: "**"

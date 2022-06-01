@@ -46,5 +46,8 @@ bind p paste-buffer
 bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
+# shortcut for previous window
+bind b last-window
+
 # reduce ESC wait timeout (ms)
 set -sg escape-time 5
