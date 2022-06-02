@@ -64,7 +64,7 @@ else
     export GO_VERSION=1.18.3
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
     export GO_SHA256SUM=956f8507b302ab0bb747613695cdae10af99bbd39a90cae522b7c0302cc27245
-{{- else if (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
+{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
     export GO_SHA256SUM=0b1683bdb449b82d8476a8d13cdc0f41a5c1bc3d1c85d37852909e5b3f3bbd81
 {{- end }}
     export GO_OS={{ .chezmoi.os }}
