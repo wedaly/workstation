@@ -22,8 +22,8 @@
     syntaxLanguage: plaintext
     tabExpand: false
     tabSize: 4
-    showTabs: true
-    showSpaces: true
+    showTabs: false
+    showSpaces: false
     showLineNumbers: false
     styles:
       lineNum: {color: "olive"}
