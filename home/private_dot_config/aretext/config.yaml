@@ -78,8 +78,8 @@
   pattern: "**"
   config:
     menuCommands:
-      - name: grep word
-        shellCmd: rg $WORD --vimgrep
+      - name: grep selection or word
+        shellCmd: rg "${SELECTION:-$WORD}" --vimgrep
         mode: fileLocations
 
 - name: git commit
