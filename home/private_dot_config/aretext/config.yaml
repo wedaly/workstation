@@ -51,33 +51,24 @@
         save: true
       - name: exec in shell
         shellCmd: printenv SELECTION | tmux load-buffer - && tmux new-window -S -n aretext-shell && tmux paste-buffer
-
-- name: tmux clipboard commands
-  pattern: "**"
-  config:
-    menuCommands:
-    - name: copy to clipboard
-      shellCmd: printenv SELECTION | tmux load-buffer -
-      mode: silent
-    - name: paste from clipboard
-      shellCmd: tmux show-buffer
-      mode: insert
-
-- name: tmux window commands
-  pattern: "**"
-  config:
-    menuCommands:
-    - name: split window horizontal
-      shellCmd: tmux split-window -h "aretext $FILEPATH"
-      mode: silent
-    - name: split window vertical
-      shellCmd: tmux split-window -v "aretext $FILEPATH"
-      mode: silent
-
-- name: grep command
-  pattern: "**"
-  config:
-    menuCommands:
+      - name: copy to clipboard
+        shellCmd: printenv SELECTION | tmux load-buffer -
+        mode: silent
+      - name: paste from clipboard
+        shellCmd: tmux show-buffer
+        mode: insert
+      - name: filepath copy
+        shellCmd: echo -n "$FILEPATH" | tmux load-buffer -
+        mode: silent
+      - name: insert filepath
+        shellCmd: echo -n "$FILEPATH"
+        mode: insert
+      - name: split window horizontal
+        shellCmd: tmux split-window -h "aretext $FILEPATH"
+        mode: silent
+      - name: split window vertical
+        shellCmd: tmux split-window -v "aretext $FILEPATH"
+        mode: silent
       - name: grep selection or word
         shellCmd: rg "${SELECTION:-$WORD}" --vimgrep
         mode: fileLocations
@@ -195,8 +186,8 @@
   config: &cconfig
     autoIndent: true
     syntaxLanguage: c
-    tabExpand: true
-    tabSize: 4
+    tabExpand: false
+    tabSize: 8
     showLineNumbers: true
 
 - name: c-header
