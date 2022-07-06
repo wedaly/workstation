@@ -76,6 +76,10 @@ gofind () {
     | xargs -r aretext
 }
 
+gomod () {
+    cd $(find $(go env GOPATH)/src -type f -name "go.mod" | xargs dirname | fzf)
+}
+
 # devlog
 alias dle="devlog.py edit"
 alias dlt="devlog.py tail | less"
