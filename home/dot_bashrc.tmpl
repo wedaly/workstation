@@ -71,13 +71,13 @@ goindex () {
 
 gofind () {
     gospelunk find -i -f "{{"-line={{.LineNum}} {{.Path|RelPath}} {{.Kind}} {{.Name}}"}}" $@ \
-    | fzf \
+    | fzf --reverse \
     | cut -d " " -f 1-2 \
     | xargs -r aretext
 }
 
 gomod () {
-    cd $(find $(go env GOPATH)/src -type f -name "go.mod" | xargs dirname | fzf)
+    cd $(find $(go env GOPATH)/src -type f -name "go.mod" | xargs dirname | fzf --reverse)
 }
 
 # devlog
