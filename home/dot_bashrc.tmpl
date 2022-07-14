@@ -63,6 +63,10 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 # fuzzy find
 export FZF_DEFAULT_COMMAND='rg --files'
 
+dir () {
+    cd $(find . -type d | fzf)
+}
+
 # gospelunk
 goindex () {
     gospelunk index -i -t $@
