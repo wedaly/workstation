@@ -64,7 +64,7 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 export FZF_DEFAULT_COMMAND='rg --files'
 
 dir () {
-    cd $(find . -type d 2> /dev/null | fzf --reverse || pwd)
+    cd $(find . -type d ! -path "*/.git/*" 2> /dev/null | fzf --reverse || pwd)
 }
 
 # gospelunk
