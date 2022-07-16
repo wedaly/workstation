@@ -80,7 +80,7 @@ gofind () {
 }
 
 gomod () {
-    cd $(find $(go env GOPATH)/src -type f -name "go.mod" | xargs dirname | fzf --reverse)
+    cd $(find $(go env GOPATH)/src -type f -name "go.mod" | xargs dirname | fzf --reverse || pwd)
 }
 
 # devlog
