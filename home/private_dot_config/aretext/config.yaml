@@ -25,6 +25,7 @@
     showTabs: false
     showSpaces: false
     showLineNumbers: false
+    lineWrap: "character"
     styles:
       lineNum: {color: "olive"}
       tokenOperator: {color: "purple"}
@@ -211,6 +212,7 @@
     tabExpand: true
     tabSize: 4
     showLineNumbers: true
+    lineWrap: "word"
     styles:
       tokenCustom1: {color: "teal", bold: true}        # Heading
       tokenCustom2: {color: "default", italic: true}   # Emphasis
