@@ -80,5 +80,5 @@ echo "Installing aretext"
 if which aretext; then
     echo "aretext is already installed"
 else
-    (cd /tmp && git clone https://github.com/aretext/aretext && cd aretext && make install)
+    (cd /tmp && rm -rf aretext && git clone https://github.com/aretext/aretext && cd aretext && make install)
 fi
