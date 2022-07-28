@@ -52,6 +52,8 @@ bind b last-window
 # reduce ESC wait timeout (ms)
 set -sg escape-time 5
 
+{{- if .bidi.enabled | default false }}
 # send bidi isolates
 # https://github.com/tmux/tmux/issues/3262
 set -as terminal-overrides ',xterm*:Bidi'
+{{- end }}

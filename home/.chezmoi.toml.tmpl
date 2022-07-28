@@ -7,3 +7,7 @@
 {{ $gpgKey := promptString "[gpg] key" -}}
 [data.gpg]
 	key = {{ $gpgKey | quote }}
+
+{{ $supportBidi := promptBool "[bidi] enable bidi isolate? [y/n]" -}}
+[data.bidi]
+	enabled = {{ $supportBidi }}
