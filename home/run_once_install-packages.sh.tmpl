@@ -62,11 +62,11 @@ if which go; then
     echo "go is already installed"
     go version
 else
-    export GO_VERSION=1.18.5
+    export GO_VERSION=1.19
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-    export GO_SHA256SUM=9e5de37f9c49942c601b191ac5fba404b868bfc21d446d6960acc12283d6e5f2
+    export GO_SHA256SUM=464b6b66591f6cf055bc5df90a9750bf5fbc9d038722bb84a9d56a2bea974be6
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
-    export GO_SHA256SUM=7a27dbe31c9fdd98be83ed6ce76fa5474044a2d960e2f9db8fa92b256dda2e58
+    export GO_SHA256SUM=167cd1107886c36fda76404e82d1447ebd3efc472fd9a9fe3b2e872d41adf981
 {{- end }}
     export GO_OS={{ .chezmoi.os }}
     export GO_ARCH={{ .chezmoi.arch }}
