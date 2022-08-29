@@ -148,6 +148,9 @@
     tabSize: 4
     showLineNumbers: true
     menuCommands:
+    - name: fmt file
+      shellCmd: goimports -w $FILEPATH | less
+      save: true
     - name: comment or uncomment selection
       shellCmd: printenv SELECTION | ~/.config/aretext/scripts/comment-go.py
       mode: insert
@@ -218,6 +221,10 @@
       tokenCustom2: {color: "default", italic: true}   # Emphasis
       tokenCustom3: {color: "default", bold: true}     # Strong emphasis
       tokenCustom4: {color: "purple", underline: true} # Link
+    menuCommands:
+    - name: fmt file
+      shellCmd: markdownfmt -w $FILEPATH
+      save: true
 
 - name: todo
   pattern: "**/*.todo"
@@ -263,29 +270,6 @@
     - name: fmt file
       shellCmd: goimports -w -local "github.com/aretext" $FILEPATH | less
       save: true
-
-- name: aretext-markdown
-  pattern: "**/aretext/**/*.md"
-  config:
-    menuCommands:
-    - name: fmt file
-      shellCmd: markdownfmt -w $FILEPATH
-      save: true
-
-- name: gospelunk-go
-  pattern: "**/gospelunk/**/*.go"
-  config:
-    menuCommands:
-    - name: fmt file
-      shellCmd: goimports -w $FILEPATH | less
-      save: true
-
-- name: gopath
-  pattern: "**/go/src/**/*.go"
-  config:
-    menuCommands:
-      - name: fmt file
-        shellCmd: goimports -w $FILEPATH | less
 
 - name: kubernetes
   pattern: "**/kubernetes/**"
