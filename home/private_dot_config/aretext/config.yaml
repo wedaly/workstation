@@ -19,6 +19,7 @@
       - "**/go/pkg/mod"
       - "**/venv"
       - "**/.kube/cache"
+      - "**/_output"
     syntaxLanguage: plaintext
     tabExpand: false
     tabSize: 4
@@ -270,9 +271,3 @@
     - name: fmt file
       shellCmd: goimports -w -local "github.com/aretext" $FILEPATH | less
       save: true
-
-- name: kubernetes
-  pattern: "**/kubernetes/**"
-  config:
-    hideDirectories:
-      - "**/_output"
