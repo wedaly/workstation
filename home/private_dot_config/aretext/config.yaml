@@ -242,13 +242,6 @@
   pattern: "**/devlogs/done.txt"
   config: *todotxt
 
-- name: devlog-git
-  pattern: "**/repos/devlog/**"
-  config:
-    autoIndent: true
-    hideDirectories:
-    - "**/target"
-
 - name: aretext
   pattern: "**/aretext/**"
   config:
