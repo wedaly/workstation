@@ -158,11 +158,12 @@
     - name: insert test snippet
       shellCmd: cat ~/.config/aretext/snippets/go-test.go
       mode: insert
-    - name: gospelunk index
-      shellCmd: ~/.config/aretext/scripts/gospelunk-index-file.py "$FILEPATH" | less
-    - name: gospelunk find
-      shellCmd: ~/.config/aretext/scripts/gospelunk-find-file.py "$WORD" "$FILEPATH"
+    - name: gospelunk def
+      shellCmd: gospelunk inspect -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t "{{.Def.Path|RelPath}}:{{.Def.Line}}:{{.Def.Column}}:{{.Def.Pkg}}.{{.Def.Name}}"
       mode: fileLocations
+    - name: gospelunk type
+      shellCmd: gospelunk inspect -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t "{{.Name}} {{.Type}}" | less
+      mode: terminal
 
 - name: python
   pattern: "**/*.py"
