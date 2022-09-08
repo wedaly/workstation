@@ -161,9 +161,11 @@
     - name: gospelunk def
       shellCmd: gospelunk inspect -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t "{{.Def.Path|RelPath}}:{{.Def.Line}}:{{.Def.Column}}:{{.Def.Pkg}}.{{.Def.Name}}"
       mode: fileLocations
+      save: true
     - name: gospelunk type
       shellCmd: gospelunk inspect -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t "{{.Name}} {{.Type}}" | less
       mode: terminal
+      save: true
 
 - name: python
   pattern: "**/*.py"
