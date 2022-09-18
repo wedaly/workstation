@@ -166,6 +166,10 @@
       shellCmd: gospelunk inspect -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t "{{.Name}} {{.Type}}" | less
       mode: terminal
       save: true
+    - name: gospelunk list
+      shellCmd: (cd $(dirname "$FILEPATH") && gospelunk list . -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}')
+      mode: fileLocations
+      save: true
 
 - name: python
   pattern: "**/*.py"
