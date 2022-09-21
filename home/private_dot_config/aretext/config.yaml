@@ -167,7 +167,7 @@
       mode: terminal
       save: true
     - name: gospelunk list
-      shellCmd: (cd $(dirname "$FILEPATH") && gospelunk list . -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}')
+      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' --include-private
       mode: fileLocations
       save: true
 
