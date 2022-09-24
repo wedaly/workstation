@@ -69,7 +69,7 @@ dir () {
 
 # gospelunk
 gofind () {
-    gospelunk find -i -f "{{"-line={{.LineNum}} {{.Path|RelPath}} {{.Kind}} {{.Name}}"}}" $@ \
+    gospelunk list -t {{"$'{{ range .Defs }}-line={{.Line}} {{.Path|RelPath}} {{.Name}}\\n{{ end }}'"}} $@ \
     | fzf --reverse \
     | cut -d " " -f 1-2 \
     | xargs -r aretext
