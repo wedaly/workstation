@@ -278,3 +278,18 @@
     - name: fmt file
       shellCmd: goimports -w -local "github.com/aretext" $FILEPATH | less
       save: true
+
+- name: gotemplate
+  pattern: "**/*.tpl"
+  config:
+    syntaxLanguage: gotemplate
+
+- name: helm-chart
+  pattern: "**/*chart*/**/templates/**/*.yaml"
+  config:
+    syntaxLanguage: gotemplate
+
+- name: helm-chart-snapshot
+  pattern: "**/snapshots/**/*.yaml"
+  config:
+    syntaxLanguage: yaml
