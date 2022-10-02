@@ -62,9 +62,6 @@
       - name: filepath copy
         shellCmd: echo -n "$FILEPATH" | tmux load-buffer -
         mode: silent
-      - name: insert filepath
-        shellCmd: echo -n "$FILEPATH"
-        mode: insert
       - name: split window horizontal
         shellCmd: tmux split-window -h "aretext $FILEPATH"
         mode: silent
