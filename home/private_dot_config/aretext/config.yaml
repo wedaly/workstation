@@ -71,6 +71,15 @@
       - name: grep selection or word
         shellCmd: rg "${SELECTION:-$WORD}" --vimgrep
         mode: fileLocations
+      - name: insert from dict
+        shellCmd: cat /usr/share/dict/words
+        mode: insertChoice
+      - name: working directory to current file
+        shellCmd: dirname "$FILEPATH"
+        mode: workingDir
+      - name: working directory to go module
+        shellCmd: find $(go env GOPATH)/src -type f -name "go.mod" | xargs -I{} dirname {}
+        mode: workingDir
 
 - name: git commit
   pattern: "**/.git/COMMIT_EDITMSG"
