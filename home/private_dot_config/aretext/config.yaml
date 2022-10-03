@@ -167,6 +167,12 @@
       shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' --include-private
       mode: fileLocations
       save: true
+    - name: insert Go def from pkg
+      mode: insertChoice
+      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Name}}\n{{end}}' --include-private
+    - name: insert Go def from imports
+      mode: insertChoice
+      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Pkg.Name}}.{{.Name}}\n{{end}}' --only-imports
 
 - name: python
   pattern: "**/*.py"
