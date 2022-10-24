@@ -305,3 +305,8 @@
   pattern: "**/snapshots/**/*.yaml"
   config:
     syntaxLanguage: yaml
+
+- name: dev-nonsense-template
+  pattern: "**/dev-nonsense-blog/**/layouts/**/*.html"
+  config:
+    syntaxLanguage: gotemplate
