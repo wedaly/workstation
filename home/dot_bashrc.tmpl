@@ -18,11 +18,11 @@ PS1='\[\033[0;34m\][\w]\[\033[00m\] '
 alias ls='ls --color=auto'
 {{- end }}
 
-# vim everywhere
+# aretext and vim key bindings everywhere
 set -o vi
 export EDITOR=aretext
 export GIT_EDITOR=aretext
-export SUDO_EDITOR=/usr/bin/vim
+export SUDO_EDITOR=$(go env GOPATH)/bin/aretext
 
 # git aliases
 alias gb='git branch'
