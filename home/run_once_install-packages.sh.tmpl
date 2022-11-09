@@ -66,7 +66,7 @@ else
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
     export GO_SHA256SUM=74b9640724fd4e6bb0ed2a1bc44ae813a03f1e72a4c76253e2d5c015494430ba
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
-    export GO_SHA256SUM=db15e51092e1605d5b6ab535467ee2033626044b43f170303abe705d61cb7bba
+    export GO_SHA256SUM=49e394ab92bc6fa3df3d27298ddf3e4491f99477bee9dd4934525a526f3a391c
 {{- end }}
     export GO_OS={{ .chezmoi.os }}
     export GO_ARCH={{ .chezmoi.arch }}
