@@ -58,20 +58,20 @@ brew install --quiet \
 {{ end -}}
 
 echo "Installing go"
-if which go; then
-    echo "go is already installed"
-    go version
-else
-    export GO_VERSION=1.19.3
+export GO_VERSION=1.19.3
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
     export GO_SHA256SUM=74b9640724fd4e6bb0ed2a1bc44ae813a03f1e72a4c76253e2d5c015494430ba
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
     export GO_SHA256SUM=49e394ab92bc6fa3df3d27298ddf3e4491f99477bee9dd4934525a526f3a391c
 {{- end }}
+if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
+    echo "go v$GO_VERSION is already installed"
+else
     export GO_OS={{ .chezmoi.os }}
     export GO_ARCH={{ .chezmoi.arch }}
     export GO_TARBALL="go${GO_VERSION}.${GO_OS}-${GO_ARCH}.tar.gz"
     (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/${GO_TARBALL} && echo "$GO_SHA256SUM  $GO_TARBALL" | sha256sum --check --status)
+    sudo rm -rf /usr/local/go
     sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
     export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 fi
