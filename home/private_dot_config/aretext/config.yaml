@@ -261,7 +261,7 @@
     <<: *todotxt
     menuCommands:
       - name: devlog tidy
-        shellCmd: devlog.py tidy
+        shellCmd: devlog tidy
         save: true
         mode: silent
 
