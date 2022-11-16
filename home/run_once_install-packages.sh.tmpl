@@ -84,8 +84,4 @@ go install honnef.co/go/tools/cmd/staticcheck@latest
 go install github.com/wedaly/gospelunk@latest
 
 echo "Installing aretext"
-if which aretext; then
-    echo "aretext is already installed"
-else
-    (cd /tmp && rm -rf aretext && git clone https://github.com/aretext/aretext && cd aretext && make install)
-fi
+(cd /tmp && rm -rf aretext && git clone https://github.com/aretext/aretext && cd aretext && make install)
