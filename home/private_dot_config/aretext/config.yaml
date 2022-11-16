@@ -300,6 +300,7 @@
   pattern: "**/chezmoi/**/*.tmpl"
   config:
     syntaxLanguage: gotemplate
+    tabExpand: true
 
 - name: helm-chart
   pattern: "**/*chart*/**/templates/**/*.yaml"
