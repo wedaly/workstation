@@ -85,6 +85,8 @@
   pattern: "**/.git/COMMIT_EDITMSG"
   config:
     syntaxLanguage: gitcommit
+    tabExpand: true
+    tabSize: 4
 
 - name: git rebase
   pattern: "**/.git/**/git-rebase-todo"
