@@ -167,7 +167,15 @@
       shellCmd: cat ~/.config/aretext/snippets/go-test.go
       mode: insert
     - name: gospelunk def
-      shellCmd: gospelunk inspect -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Pkg}}.{{.Name}}\n{{end}}'
+      shellCmd: gospelunk inspect -r definition -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Pkg}}.{{.Name}}\n{{end}}'
+      mode: fileLocations
+      save: true
+    - name: gospelunk ref
+      shellCmd: gospelunk inspect -r reference -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Pkg}}.{{.Name}}\n{{end}}'
+      mode: fileLocations
+      save: true
+    - name: gospelunk impl
+      shellCmd: gospelunk inspect -r interfaceImplementation -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Pkg}}.{{.Name}}\n{{end}}'
       mode: fileLocations
       save: true
     - name: gospelunk type
