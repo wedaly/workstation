@@ -175,7 +175,11 @@
       mode: fileLocations
       save: true
     - name: gospelunk impl
-      shellCmd: gospelunk inspect -r implementation -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Pkg}}.{{.Name}}\n{{end}}'
+      shellCmd: gospelunk inspect -r implementation -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}'
+      mode: fileLocations
+      save: true
+    - name: gospelunk interface
+      shellCmd: gospelunk inspect -r interface -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}'
       mode: fileLocations
       save: true
     - name: gospelunk type
