@@ -171,15 +171,15 @@
       mode: fileLocations
       save: true
     - name: gospelunk ref
-      shellCmd: gospelunk inspect -r reference -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' | tee /tmp/gospelunk-hist.txt
+      shellCmd: gospelunk inspect -r reference -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' | tee /tmp/gospelunk-recall.txt
       mode: fileLocations
       save: true
     - name: gospelunk impl
-      shellCmd: gospelunk inspect -r implementation -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' | tee /tmp/gospelunk-hist.txt
+      shellCmd: gospelunk inspect -r implementation -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' | tee /tmp/gospelunk-recall.txt
       mode: fileLocations
       save: true
     - name: gospelunk interface
-      shellCmd: gospelunk inspect -r interface -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' | tee /tmp/gospelunk-hist.txt
+      shellCmd: gospelunk inspect -r interface -f "$FILEPATH" -l "$LINE" -c "$COLUMN" -t $'{{range .Relations}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' | tee /tmp/gospelunk-recall.txt
       mode: fileLocations
       save: true
     - name: gospelunk type
@@ -190,8 +190,8 @@
       shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' --include-private
       mode: fileLocations
       save: true
-    - name: gospelunk hist
-      shellCmd: cat /tmp/gospelunk-hist.txt
+    - name: gospelunk recall
+      shellCmd: cat /tmp/gospelunk-recall.txt
       mode: fileLocations
       save: true
     - name: insert Go def from pkg
