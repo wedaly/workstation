@@ -187,7 +187,7 @@
       mode: terminal
       save: true
     - name: gospelunk list
-      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' --include-private
+      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Path|RelPath}}:{{.Line}}:{{.Column}}:{{.Name}}\n{{end}}' --include-private $(if [[ $FILEPATH == *_test.go ]]; then echo "--include-tests"; fi)
       mode: fileLocations
       save: true
     - name: gospelunk recall
