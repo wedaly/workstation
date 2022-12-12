@@ -313,17 +313,20 @@
   pattern: "**/*.tpl"
   config:
     syntaxLanguage: gotemplate
+    showLineNumbers: true
 
 - name: chezmoi-template
   pattern: "**/chezmoi/**/*.tmpl"
   config:
     syntaxLanguage: gotemplate
     tabExpand: true
+    showLineNumbers: true
 
 - name: helm-chart
   pattern: "**/*chart*/**/templates/**/*.yaml"
   config:
     syntaxLanguage: gotemplate
+    showLineNumbers: true
 
 - name: helm-chart-snapshot
   pattern: "**/snapshots/**/*.yaml"
