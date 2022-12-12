@@ -12,7 +12,7 @@ def main():
     with open(HISTORY_PATH) as f:
         for idx, line in enumerate(f):
             entry_count += 1
-            if is_valid_cmd(line):
+            if preserve_cmd(line):
                 unique_cmds[line.strip()] = idx # last cmd wins
 
     new_history = "\n".join(sort_unique_cmds(unique_cmds))
@@ -25,7 +25,7 @@ def main():
     print("Num entries after: {}".format(len(unique_cmds)))
 
 
-def is_valid_cmd(line):
+def preserve_cmd(line):
     try:
         parts = shlex.split(line)
     except ValueError:
