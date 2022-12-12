@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+import os.path
+import shlex
+import shutil
+
+HISTORY_PATH = os.path.expanduser("~/.bash_history")
+
+def main():
+    entry_count = 0
+    unique_cmds = {}
+    with open(HISTORY_PATH) as f:
+        for idx, line in enumerate(f):
+            entry_count += 1
+            if is_valid_cmd(line):
+                unique_cmds[line.strip()] = idx # last cmd wins
+
+    new_history = "\n".join(sort_unique_cmds(unique_cmds))
+
+    with open(HISTORY_PATH, "w") as f:
+        f.write(new_history)
+
+    print("Cleaned bash history {}".format(HISTORY_PATH))
+    print("Num entries before: {}".format(entry_count))
+    print("Num entries after: {}".format(len(unique_cmds)))
+
+
+def is_valid_cmd(line):
+    try:
+        parts = shlex.split(line)
+    except ValueError:
+        return False
+
+    if len(parts) == 0:
+        return False
+
+    cmd = parts[0]
+    return shutil.which(cmd) is not None
+
+
+def sort_unique_cmds(unique_cmds):
+    idx_and_cmd = [(idx, cmd) for (cmd, idx) in unique_cmds.items()]
+    idx_and_cmd.sort()
+    return [cmd for (_, cmd) in idx_and_cmd]
+
+
+if __name__ == "__main__":
+    main()
