@@ -313,6 +313,7 @@
   pattern: "**/*.tpl"
   config:
     syntaxLanguage: gotemplate
+    tabExpand: true
     showLineNumbers: true
 
 - name: chezmoi-template
