@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from functools import cache
 import os.path
 import shlex
 import shutil
@@ -35,6 +36,11 @@ def preserve_cmd(line):
         return False
 
     cmd = parts[0]
+    return cached_check_cmd_exists(cmd)
+
+
+@cache
+def cached_check_cmd_exists(cmd):
     return shutil.which(cmd) is not None
 
 
