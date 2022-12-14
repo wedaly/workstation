@@ -59,18 +59,18 @@ brew install --quiet \
 {{ end -}}
 
 echo "Installing go"
-export GO_VERSION=1.19.4
+GO_VERSION=1.19.4
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-    export GO_SHA256SUM=c9c08f783325c4cf840a94333159cc937f05f75d36a8b307951d5bd959cf2ab8
+    GO_SHA256SUM=c9c08f783325c4cf840a94333159cc937f05f75d36a8b307951d5bd959cf2ab8
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
-    export GO_SHA256SUM=bb3bc5d7655b9637cfe2b5e90055dee93b0ead50e2ffd091df320d1af1ca853f
+    GO_SHA256SUM=bb3bc5d7655b9637cfe2b5e90055dee93b0ead50e2ffd091df320d1af1ca853f
 {{- end }}
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
     echo "go v$GO_VERSION is already installed"
 else
-    export GO_OS={{ .chezmoi.os }}
-    export GO_ARCH={{ .chezmoi.arch }}
-    export GO_TARBALL="go${GO_VERSION}.${GO_OS}-${GO_ARCH}.tar.gz"
+    GO_OS={{ .chezmoi.os }}
+    GO_ARCH={{ .chezmoi.arch }}
+    GO_TARBALL="go${GO_VERSION}.${GO_OS}-${GO_ARCH}.tar.gz"
     (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/${GO_TARBALL} && echo "$GO_SHA256SUM  $GO_TARBALL" | sha256sum --check --status)
     sudo rm -rf /usr/local/go
     sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
