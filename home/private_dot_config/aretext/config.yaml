@@ -231,6 +231,11 @@
     tabExpand: false
     tabSize: 8
     showLineNumbers: true
+    menuCommands:
+    - name: c def
+      shellCmd: cdef.py "$WORD"
+      mode: fileLocations
+      save: true
 
 - name: c-header
   pattern: "**/*.h"
