@@ -41,12 +41,12 @@ def search_tags(dir, symbol):
     return [tag for tag in result.stdout.decode('utf-8').split("\n") if len(tag) > 0]
 
 
-PATTERN_RE = re.compile(r"\/\^(.+)\$\/")
+PATTERN_RE = re.compile(r"\/\^(.+)\$?\/")
 
 def tag_to_file_loc(dir, tag):
     # The tags(5) man page says that the pattern might also be a decimal line number
     # or a regex delimited by "?", but for now we just handle the /^ABC$/ regex form.
-    symbol, path, pattern = tag.split('\t', maxsplit=3)
+    symbol, path, pattern = tag.split('\t', maxsplit=2)
     match = PATTERN_RE.match(pattern)
     if match is None:
         return None
@@ -63,7 +63,7 @@ def tag_to_file_loc(dir, tag):
 def lookup_line_num(path, snippet):
     with open(path) as f:
         for i, line in enumerate(f):
-            if line.strip() == snippet.strip():
+            if line.strip().startswith(snippet.strip()):
                 return i + 1
     return None
 
