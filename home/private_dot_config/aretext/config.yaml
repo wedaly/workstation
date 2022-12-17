@@ -236,6 +236,10 @@
       shellCmd: cdef.py "$WORD"
       mode: fileLocations
       save: true
+    - name: c callers
+      shellCmd: ccallers.py "$WORD"
+      mode: fileLocations
+      save: true
 
 - name: c-header
   pattern: "**/*.h"

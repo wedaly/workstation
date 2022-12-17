@@ -19,7 +19,8 @@ sudo apt install \
     htop \
     python3 \
     python3-pip \
-    universal-ctags
+    universal-ctags \
+    cscope
 {{ else if eq .chezmoi.osRelease.id "fedora" -}}
 echo "Installing system packages (dnf)"
 sudo dnf update
@@ -57,7 +58,8 @@ brew install --quiet \
     gnupg \
     python3 \
     gnu-sed \
-    universal-ctags
+    universal-ctags \
+    cscope
 {{ end -}}
 
 echo "Installing go"
