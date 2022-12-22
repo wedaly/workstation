@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
-from functools import cache
 import os.path
-import shlex
-import shutil
 
 HISTORY_PATH = os.path.expanduser("~/.bash_history")
 
@@ -13,8 +10,7 @@ def main():
     with open(HISTORY_PATH) as f:
         for idx, line in enumerate(f):
             entry_count += 1
-            if preserve_cmd(line):
-                unique_cmds[line.strip()] = idx # last cmd wins
+            unique_cmds[line.strip()] = idx # last cmd wins
 
     new_history = "\n".join(sort_unique_cmds(unique_cmds))
 
@@ -24,24 +20,6 @@ def main():
     print("Cleaned bash history {}".format(HISTORY_PATH))
     print("Num entries before: {}".format(entry_count))
     print("Num entries after: {}".format(len(unique_cmds)))
-
-
-def preserve_cmd(line):
-    try:
-        parts = shlex.split(line)
-    except ValueError:
-        return False
-
-    if len(parts) == 0:
-        return False
-
-    cmd = parts[0]
-    return cached_check_cmd_exists(cmd)
-
-
-@cache
-def cached_check_cmd_exists(cmd):
-    return shutil.which(cmd) is not None
 
 
 def sort_unique_cmds(unique_cmds):
