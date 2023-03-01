@@ -95,7 +95,7 @@
 
 - name: json
   pattern: "**/*.json"
-  config:
+  config: &jsonConfig
     autoIndent: true
     syntaxLanguage: json
     tabExpand: true
@@ -114,6 +114,14 @@
 - name: yml
   pattern: "**/*.yml"
   config: *yamlConfig
+
+- name: butane
+  pattern: "**/*.bu"
+  config: *yamlConfig
+
+- name: ignition
+  pattern: "**/*.ign"
+  config: *jsonConfig
 
 - name: shell
   pattern: "**/*.sh"
