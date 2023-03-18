@@ -62,11 +62,11 @@ brew install --quiet \
 {{ end -}}
 
 echo "Installing go"
-GO_VERSION=1.20.1
+GO_VERSION=1.20.2
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-    GO_SHA256SUM=000a5b1fca4f75895f78befeb2eecf10bfff3c428597f3f1e69133b63b911b02
+    GO_SHA256SUM=4eaea32f59cde4dc635fbc42161031d13e1c780b87097f4b4234cfce671f1768
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
-    GO_SHA256SUM=f1a8e06c7f1ba1c008313577f3f58132eb166a41ceb95ce6e9af30bc5a3efca4
+    GO_SHA256SUM=7343c87f19e79c0063532e82e1c4d6f42175a32d99f7a4d15e658e88bf97f885
 {{- end }}
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
     echo "go v$GO_VERSION is already installed"
