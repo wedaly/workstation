@@ -20,6 +20,7 @@
       - "**/venv"
       - "**/.kube/cache"
       - "**/_output"
+      - "**/__pycache__"
     syntaxLanguage: plaintext
     tabExpand: false
     tabSize: 4
