@@ -134,7 +134,15 @@
     showLineNumbers: true
 
 - name: bashrc
-  pattern: "**/.bash*"
+  pattern: "**/.bashrc"
+  config: *shellConfig
+
+- name: bash_profile
+  pattern: "**/.bash_profile"
+  config: *shellConfig
+
+- name: bash_private
+  pattern: "**/.bash_private"
   config: *shellConfig
 
 - name: xml
