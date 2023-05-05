@@ -9,15 +9,17 @@ import re
 
 def main():
     if len(sys.argv) < 2:
-        print("USAGE: {} FILE".format(sys.argv[0]))
+        print("USAGE: {} FILE [LINE]".format(sys.argv[0]))
         sys.exit(1)
 
     filepath = sys.argv[1]
-    url = url_for_file(filepath)
+    line = int(sys.argv[2]) if len(sys.argv) >= 2 else None
+
+    url = url_for_file(filepath, line)
     print(url)
 
 
-def url_for_file(filepath):
+def url_for_file(filepath, line):
     dirpath = os.path.dirname(filepath) or "."
     with chdir(dirpath):
         repo_url = git_cmd(["remote", "get-url", "origin"])
@@ -27,19 +29,24 @@ def url_for_file(filepath):
     relpath = os.path.relpath(filepath, start=repo_root)
 
     if "github.com" in repo_url:
-        return github_url(repo_url, git_commit, relpath)
+        return github_url(repo_url, git_commit, relpath, line)
     else:
         raise Exception("Cannot construct file URL for git repository {}".format(repo_url))
 
 
-def github_url(repo_url, git_commit, relpath):
+def github_url(repo_url, git_commit, relpath, line):
     repo_org, repo_name = github_repo_org_and_name(repo_url)
-    return "https://github.com/{}/{}/blob/{}/{}".format(
+    url = "https://github.com/{}/{}/blob/{}/{}".format(
         repo_org,
         repo_name,
         git_commit,
         relpath,
     )
+
+    if line is not None:
+        url += "#L{}".format(line)
+
+    return url
 
 
 def github_repo_org_and_name(repo_url):

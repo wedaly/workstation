@@ -82,7 +82,7 @@
         shellCmd: find $(go env GOPATH)/src -type f -name "go.mod" | xargs -I{} dirname {}
         mode: workingDir
       - name: git url
-        shellCmd: giturl.py "$FILEPATH" | less
+        shellCmd: giturl.py "$FILEPATH" "$LINE" | less
 
 - name: git commit
   pattern: "**/.git/COMMIT_EDITMSG"
