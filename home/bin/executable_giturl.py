@@ -4,6 +4,7 @@ from contextlib import contextmanager
 import os
 import sys
 import subprocess
+import urllib.parse
 import re
 
 
@@ -30,6 +31,8 @@ def url_for_file(filepath, line):
 
     if "github.com" in repo_url:
         return github_url(repo_url, git_commit, relpath, line)
+    elif "visualstudio.com" in repo_url:
+        return ado_url(repo_url, git_commit, relpath, line)
     else:
         raise Exception("Cannot construct file URL for git repository {}".format(repo_url))
 
@@ -61,6 +64,35 @@ def github_repo_org_and_name(repo_url):
             return m.group(1), m.group(2)
 
     raise Exception("Could not extract GitHub repo org and name from {}".format(repo_url))
+
+
+def ado_url(repo_url, git_commit, relpath, line):
+    repo_org, repo_project, repo_name = ado_repo_org_project_and_name(repo_url)
+    url = "https://{}.visualstudio.com/{}/_git/{}?path={}&version=GC{}&_a=contents".format(
+        repo_org,
+        repo_project,
+        repo_name,
+        urllib.parse.quote_plus("/" + relpath),
+        git_commit,
+    )
+
+    if line is not None:
+        url += "&line={}&lineStartColumn=1&lineEndColumn=1&lineStyle=plain".format(line)
+
+    return url
+
+
+def ado_repo_org_project_and_name(repo_url):
+    patterns = [
+        "[^@]+@[^.]+.visualstudio.com:[^/]+/([^/]+)/([^.]+)/(.+)",
+    ]
+
+    for p in patterns:
+        m = re.match(p, repo_url)
+        if m is not None:
+            return m.group(1), m.group(2), m.group(3)
+
+    raise Exception("Could not extract ADO repo org, project, and name from {}".format(repo_url))
 
 
 def git_cmd(args):
