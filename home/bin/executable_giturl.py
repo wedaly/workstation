@@ -43,10 +43,17 @@ def github_url(repo_url, git_commit, relpath):
 
 
 def github_repo_org_and_name(repo_url):
-    m = re.match("git@github.com:([^/]+)/([^.]+)", repo_url)
-    if m is None:
-        raise Exception("Could not extract GitHub repo org and name from {}".format(repo_url))
-    return m.group(1), m.group(2)
+    patterns = [
+        "git@github.com:([^/]+)/([^.]+)",
+        "https://github.com/([^/]+)/([^.]+)",
+    ]
+
+    for p in patterns:
+        m = re.match(p, repo_url)
+        if m is not None:
+            return m.group(1), m.group(2)
+
+    raise Exception("Could not extract GitHub repo org and name from {}".format(repo_url))
 
 
 def git_cmd(args):
