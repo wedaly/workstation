@@ -6,6 +6,8 @@
 {{ if .gpg.key }}	signingkey = {{ .gpg.key }}{{ end }}
 [pull]
 	ff = only
+[push]
+	autoSetupRemote = true
 [commit]
 	gpgsign = {{ if .gpg.key }}true{{ else }}false{{ end }}
 [tag]
@@ -16,5 +18,5 @@
 	algorithm = patience
 [merge]
     conflictstyle = diff3
-[remote "origin"]
-       prune = true
+[fetch]
+    prune = true
