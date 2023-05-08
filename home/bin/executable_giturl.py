@@ -54,8 +54,10 @@ def github_url(repo_url, git_commit, relpath, line):
 
 def github_repo_org_and_name(repo_url):
     patterns = [
-        "git@github.com:([^/]+)/([^.]+)",
-        "https://github.com/([^/]+)/([^.]+)",
+        "git@github.com:([^/]+)/(.+).git$",
+        "git@github.com:([^/]+)/(.+)$",
+        "https://github.com/([^/]+)/(.+).git$",
+        "https://github.com/([^/]+)/(.+)$",
     ]
 
     for p in patterns:
