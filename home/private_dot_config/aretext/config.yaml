@@ -85,7 +85,7 @@
         shellCmd: giturl.py "$FILEPATH" "$LINE" | less
 
 - name: git commit
-  pattern: "**/.git/COMMIT_EDITMSG"
+  pattern: "**/.git/*_EDITMSG"
   config:
     syntaxLanguage: gitcommit
     tabExpand: true
