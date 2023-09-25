@@ -170,13 +170,17 @@
 
 - name: Makefile
   pattern: "**/Makefile*"
-  config:
+  config: &makefile
     syntaxLanguage: makefile
     showTabs: true
     tabExpand: false
     autoIndent: true
     tabSize: 4
     showLineNumbers: true
+
+- name: mk
+  pattern: "**/*.mk"
+  config: *makefile
 
 - name: go
   pattern: "**/*.go"
