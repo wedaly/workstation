@@ -169,8 +169,9 @@
     showLineNumbers: true
 
 - name: Makefile
-  pattern: "**/Makefile"
+  pattern: "**/Makefile*"
   config:
+    syntaxLanguage: makefile
     showTabs: true
     tabExpand: false
     autoIndent: true
