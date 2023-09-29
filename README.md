@@ -46,11 +46,13 @@ disable-in: firefox
 
 ## Ubuntu on WSL2
 
-1. Download an image like `ubuntu-22.04-server-cloudimg-amd64-wsl.rootfs.tar.gz` from [https://cloud-images.ubuntu.com/releases/](https://cloud-images.ubuntu.com/releases/).
+1. Download an image like `ubuntu-22.04-server-cloudimg-amd64-root.tar.xz` from [https://cloud-images.ubuntu.com/releases/](https://cloud-images.ubuntu.com/releases/).
 
-2. In Powershell, create a new WSL distribution:
+2. Decompress the `.xz` file.
+
+3. In Powershell, create a new WSL distribution:
 ```
-wsl.exe --import ubuntu-22.04-wsl .\Documents\ubuntu-22.04-wsl .\Downloads\ubuntu-22.04-server-cloudimg-amd64-wsl.rootfs.tar.gz
+wsl.exe --import ubuntu-22.04-wsl .\Documents\ubuntu-22.04-wsl .\Downloads\ubuntu-22.04-server-cloudimg-amd64-root.tar
 ```
 
 3. Run the bootstrap script:
