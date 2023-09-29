@@ -31,7 +31,7 @@ def url_for_file(filepath, line):
 
     if "github.com" in repo_url:
         return github_url(repo_url, git_commit, relpath, line)
-    elif "visualstudio.com" in repo_url:
+    elif "visualstudio.com" in repo_url or "dev.azure.com" in repo_url:
         return ado_url(repo_url, git_commit, relpath, line)
     else:
         raise Exception("Cannot construct file URL for git repository {}".format(repo_url))
@@ -86,7 +86,7 @@ def ado_url(repo_url, git_commit, relpath, line):
 
 def ado_repo_org_project_and_name(repo_url):
     patterns = [
-        "[^@]+@[^.]+.visualstudio.com:[^/]+/([^/]+)/([^.]+)/(.+)",
+        "[^@]+@.+\.com:[^/]+/([^/]+)/([^.]+)/(.+)",
     ]
 
     for p in patterns:
