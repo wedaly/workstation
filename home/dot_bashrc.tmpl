@@ -69,16 +69,16 @@ dir () {
     cd $(find . -type d ! -path "*/.git/*" 2> /dev/null | fzf --reverse || pwd)
 }
 
+gitfind() {
+    cd $(find $HOME/repos -type d -maxdepth 2 -name ".git" | xargs dirname | fzf --reverse || pwd)
+}
+
 # gospelunk
 gofind () {
     gospelunk list -t {{"$'{{ range .Defs }}-line={{.Line}} {{.Path|RelPath}} {{.Name}}\\n{{ end }}'"}} $@ \
     | fzf --reverse \
     | cut -d " " -f 1-2 \
     | xargs -r aretext
-}
-
-gomod () {
-    cd $(find $(go env GOPATH)/src -type f -name "go.mod" | grep -v testdata | xargs -I{} dirname {} | fzf --reverse || pwd)
 }
 
 # devlog
