@@ -70,7 +70,11 @@ dir () {
 }
 
 gitfind() {
-    cd $(find $HOME/repos -type d -maxdepth 2 -name ".git" | xargs dirname | fzf --reverse || pwd)
+    cd $(find $HOME/repos -maxdepth 5 -type d -name ".git" | xargs -I{} dirname {} | fzf --reverse || pwd)
+}
+
+adhoc () {
+    cd $(find $HOME/adhoc -mindepth 1 -maxdepth 1 -type d | fzf --reverse || pwd)
 }
 
 # gospelunk
