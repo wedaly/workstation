@@ -169,7 +169,7 @@
     showLineNumbers: true
 
 - name: Makefile
-  pattern: "**/Makefile*"
+  pattern: "**/*Makefile*"
   config: &makefile
     syntaxLanguage: makefile
     showTabs: true
