@@ -69,9 +69,12 @@ dir () {
     cd $(find . -type d ! -path "*/.git/*" 2> /dev/null | fzf --reverse || pwd)
 }
 
-gitfind() {
+repo() {
     cd $(find $HOME/repos -maxdepth 5 -type d -name ".git" | xargs -I{} dirname {} | fzf --reverse || pwd)
 }
+
+alias r=repo
+alias repos=repo
 
 adhoc () {
     cd $(find $HOME/adhoc -mindepth 1 -maxdepth 1 -type d | fzf --reverse || pwd)
