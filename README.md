@@ -44,6 +44,16 @@ Workaround for issue with Firefox:
 disable-in: firefox
 ```
 
+## Ubuntu
+
+Run the bootstrap script:
+```
+cd /tmp
+curl https://raw.githubusercontent.com/wedaly/workstation/main/bootstrap/ubuntu.sh > bootstrap.sh
+chmod +x bootstrap.sh
+./bootstrap.sh
+```
+
 ## Ubuntu on WSL2
 
 1. Download an image like `ubuntu-22.04-server-cloudimg-amd64-root.tar.xz` from [https://cloud-images.ubuntu.com/releases/](https://cloud-images.ubuntu.com/releases/).
