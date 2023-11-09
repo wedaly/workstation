@@ -84,6 +84,11 @@ echo "Docker Linux post-install"
 sudo groupadd -f docker
 sudo usermod -aG docker $USER
 
+echo "Installing kubectl node-shell"
+curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
+chmod +x ./kubectl-node_shell
+sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
+
 echo "Installing rust"
 RUST_VERSION=1.73.0
 if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
