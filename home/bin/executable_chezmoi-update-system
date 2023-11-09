@@ -2,5 +2,5 @@
 
 set -xe
 
-chezmoi state delete-bucket --bucket=scriptState
+chezmoi state delete-bucket --bucket=scriptState || true
 chezmoi update
