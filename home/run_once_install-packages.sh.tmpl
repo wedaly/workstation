@@ -39,35 +39,11 @@ sudo dnf install \
     python3 \
     ctags
 {{ end -}}
-
-{{ else if eq .chezmoi.os "darwin" -}}
-echo "Installing system packages (brew)"
-brew install --quiet \
-    coreutils \
-    bash \
-    vim \
-    wget \
-    curl \
-    git \
-    tmux \
-    tree \
-    jq \
-    sd \
-    ripgrep \
-    fzf \
-    gnupg \
-    python3 \
-    gnu-sed \
-    universal-ctags
 {{ end -}}
 
 echo "Installing go"
 GO_VERSION=1.21.4
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-    GO_SHA256SUM=73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af
-{{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
-    GO_SHA256SUM=8b7caf2ac60bdff457dba7d4ff2a01def889592b834453431ae3caecf884f6a5
-{{- end }}
+GO_SHA256SUM=73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
     echo "go v$GO_VERSION is already installed"
 else
