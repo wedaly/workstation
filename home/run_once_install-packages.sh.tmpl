@@ -1,6 +1,11 @@
 #!/usr/bin/env sh
 set -e
 
+GO_VERSION=1.21.4
+GO_SHA256SUM=73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af
+RUST_VERSION=1.73.0
+KUBERNETES_VERSION=1.28
+
 {{ if eq .chezmoi.os "linux" -}}
 {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
 echo "Installing system packages (apt)"
@@ -36,8 +41,8 @@ sudo apt update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "Installing kubectl (apt)"
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt update
 sudo apt install kubectl
 
@@ -71,10 +76,10 @@ echo "Installing kubectl (dnf)"
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/
+baseurl=https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/repodata/repomd.xml.key
+gpgkey=https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/rpm/repodata/repomd.xml.key
 EOF
 sudo yum install kubectl
 {{ end -}}
@@ -90,7 +95,6 @@ chmod +x ./kubectl-node_shell
 sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
 
 echo "Installing rust"
-RUST_VERSION=1.73.0
 if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
     curl https://keybase.io/rust/pgp_keys.asc | gpg --import
 fi
@@ -110,8 +114,6 @@ echo "Installing rust tools"
 cargo install sd
 
 echo "Installing go"
-GO_VERSION=1.21.4
-GO_SHA256SUM=73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
     echo "go v$GO_VERSION is already installed"
 else
