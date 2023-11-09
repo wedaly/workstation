@@ -41,6 +41,23 @@ sudo dnf install \
 {{ end -}}
 {{ end -}}
 
+echo "Installing rust"
+RUST_VERSION=1.73.0
+if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
+    curl https://keybase.io/rust/pgp_keys.asc | gpg --import
+fi
+if (which rustc && rustc --version | cut -d ' ' -f 2 | grep $RUST_VERSION); then
+    echo "rust v$RUST_VERSION is already installed"
+else
+    RUST_TARBALL="rust-${RUST_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+    RUST_TARBALL_SIG="${RUST_TARBALL}.asc"
+    RUST_TARBALL_URL="https://static.rust-lang.org/dist/${RUST_TARBALL}"
+    RUST_TARBALL_SIG_URL="https://static.rust-lang.org/dist/${RUST_TARBALL_SIG}"
+    RUST_INSTALL_SCRIPT="/tmp/$(basename $RUST_TARBALL .tar.gz)/install.sh"
+    (cd /tmp && rm -rf "$RUST_TARBALL" && rm -rf $RUST_TARBALL_SIG && wget $RUST_TARBALL_URL && wget $RUST_TARBALL_SIG_URL && gpg --verify $RUST_TARBALL_SIG)
+    sudo bash "$RUST_INSTALL_SCRIPT"
+fi
+
 echo "Installing go"
 GO_VERSION=1.21.4
 GO_SHA256SUM=73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af
