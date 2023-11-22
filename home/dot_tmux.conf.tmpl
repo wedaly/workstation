@@ -2,11 +2,7 @@
 set -g default-shell /bin/bash
 
 # terminal
-{{- if eq .chezmoi.os "darwin" }}
-set -g default-terminal "screen-256color"
-{{- else }}
 set -g default-terminal "tmux"
-{{- end }}
 
 # status line
 set -g status-left ""
@@ -19,12 +15,6 @@ set -g renumber-windows on
 
 # scroll history
 set -g history-limit 10000
-
-# keep cwd on pane split and make horizontal split pane smaller
-unbind '"'
-bind '"' split-window -v -c '#{pane_current_path}'
-unbind %
-bind % split-window -h -c '#{pane_current_path}'
 
 # vim-style pane navigation
 bind h select-pane -L
