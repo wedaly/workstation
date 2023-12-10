@@ -16,6 +16,12 @@ set -g renumber-windows on
 # scroll history
 set -g history-limit 10000
 
+# keep cwd on pane split
+unbind '"'
+bind '"' split-window -v -c '#{pane_current_path}'
+unbind %
+bind % split-window -h -c '#{pane_current_path}'
+
 # vim-style pane navigation
 bind h select-pane -L
 bind j select-pane -D
