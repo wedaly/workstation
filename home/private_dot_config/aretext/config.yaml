@@ -72,7 +72,7 @@
       - name: grep selection or word
         shellCmd: rg "${SELECTION:-$WORD}" --vimgrep
         mode: fileLocations
-      - name: insert from dict
+      - name: insert word from dictionary
         shellCmd: cat /usr/share/dict/words
         mode: insertChoice
       - name: working directory to current file
