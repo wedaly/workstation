@@ -29,6 +29,7 @@ export SUDO_EDITOR=$HOME/go/bin/aretext
 # git aliases
 alias gb='git branch'
 alias gco='git checkout'
+alias wip='git add -u && git commit --fixup=$(git rev-parse HEAD)'
 
 # git completions
 source $HOME/.git-completion.bash
