@@ -230,10 +230,10 @@
       save: true
     - name: insert Go def from pkg
       mode: insertChoice
-      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Name}}\n{{end}}' --include-private
+      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Name}}\n{{end}}' --include-private $(if [[ $FILEPATH == *_test.go ]]; then echo "--include-tests"; fi)
     - name: insert Go def from imports
       mode: insertChoice
-      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Pkg.Name}}.{{.Name}}\n{{end}}' --only-imports
+      shellCmd: gospelunk list "file=$FILEPATH" -t $'{{range .Defs}}{{.Pkg.Name}}.{{.Name}}\n{{end}}' --only-imports $(if [[ $FILEPATH == *_test.go ]]; then echo "--include-tests"; fi)
 
 - name: python
   pattern: "**/*.py"
