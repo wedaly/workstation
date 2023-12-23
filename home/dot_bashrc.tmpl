@@ -53,6 +53,11 @@ gd() {
 
 alias gdc='git diff --cached'
 
+gp() {
+    b=$(git rev-parse --abbrev-ref HEAD)
+    git push origin $b $@
+}
+
 # git completions
 source $HOME/.git-completion.bash
 __git_complete gb _git_branch
