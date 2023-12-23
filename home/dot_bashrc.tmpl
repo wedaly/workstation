@@ -31,6 +31,28 @@ alias gb='git branch'
 alias gco='git checkout'
 alias wip='git add -u && git commit --fixup=$(git rev-parse HEAD)'
 
+gr() {
+    branches=$(git branch --all)
+    if echo "$branches" | grep "origin/master" > /dev/null; then
+        b="origin/master"
+    else 
+        b="origin/main"
+    fi
+    git rebase -i "$b"
+}
+
+gd() {
+    branches=$(git branch --all)
+    if echo "$branches" | grep "origin/master" > /dev/null; then
+        b="origin/master"
+    else 
+        b="origin/main"
+    fi
+    git diff "$b"...HEAD
+}
+
+alias gdc='git diff --cached'
+
 # git completions
 source $HOME/.git-completion.bash
 __git_complete gb _git_branch
