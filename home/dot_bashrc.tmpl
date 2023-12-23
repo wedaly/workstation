@@ -28,8 +28,10 @@ export SUDO_EDITOR=$HOME/go/bin/aretext
 
 # git aliases
 alias gb='git branch'
+alias gc='git commit'
 alias gco='git checkout'
 alias wip='git add -u && git commit --fixup=$(git rev-parse HEAD)'
+alias gd='git diff'
 
 gr() {
     branches=$(git branch --all)
@@ -41,7 +43,7 @@ gr() {
     git rebase -i "$b"
 }
 
-gd() {
+gdm() {
     branches=$(git branch --all)
     if echo "$branches" | grep "origin/master" > /dev/null; then
         b="origin/master"
@@ -50,8 +52,6 @@ gd() {
     fi
     git diff "$b"...HEAD
 }
-
-alias gdc='git diff --cached'
 
 gp() {
     b=$(git rev-parse --abbrev-ref HEAD)
