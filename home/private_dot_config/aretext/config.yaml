@@ -377,3 +377,8 @@
   pattern: "**/dev-nonsense-blog/**/layouts/**/*.html"
   config:
     syntaxLanguage: gotemplate
+
+- name: p4
+  pattern: "**/*.p4"
+  config:
+    syntaxLanguage: p4
