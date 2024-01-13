@@ -13,7 +13,7 @@ export TERMINAL=xterm
 export KEYTIMEOUT=1
 
 # prompt
-PS1='\[\033[0;34m\][\w]\[\033[00m\] '
+PS1='\[\033[0;34m\][\H:\w]\[\033[00m\] '
 
 {{- if eq .chezmoi.os "linux" }}
 # ls colors
