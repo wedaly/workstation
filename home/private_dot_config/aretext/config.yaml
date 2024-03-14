@@ -303,6 +303,19 @@
       shellCmd: markdownfmt -w $FILEPATH
       save: true
 
+- name: bazel
+  pattern: "**/*.bzl"
+  config: &bazel
+    autoIndent: true
+    syntaxLanguage: python
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
+- name: bazel-workspace
+  pattern: "**/WORKSPACE"
+  config: *bazel
+
 - name: todo
   pattern: "**/*.todo"
   config: &todotxt
