@@ -304,13 +304,17 @@
       save: true
 
 - name: bazel
-  pattern: "**/*.bzl"
+  pattern: "**/*.bazel"
   config: &bazel
     autoIndent: true
     syntaxLanguage: python
     tabExpand: true
     tabSize: 4
     showLineNumbers: true
+
+- name: bzl
+  pattern: "**/*.bzl"
+  config: *bazel
 
 - name: bazel-workspace
   pattern: "**/WORKSPACE"
