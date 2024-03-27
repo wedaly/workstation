@@ -1,8 +1,10 @@
 {{- $gitConfigName := promptString "[gitconfig] name" -}}
 {{- $gitConfigEmail := promptString "[gitconfig] email" -}}
+{{- $gitConfigUseWindowsGitCredentialManager := promptBool "[gitconfig] use Windows git credential manager? [y/n]" -}}
 [data.gitconfig]
 	name = {{ $gitConfigName | quote }}
 	email = {{ $gitConfigEmail | quote }}
+    useWindowsGitCredentialManager = {{ $gitConfigUseWindowsGitCredentialManager }}
 
 {{ $gpgKey := promptString "[gpg] key" -}}
 [data.gpg]
