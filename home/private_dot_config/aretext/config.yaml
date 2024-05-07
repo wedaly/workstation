@@ -147,6 +147,14 @@
   pattern: "**/.bash_private"
   config: *shellConfig
 
+- name: powershell
+  pattern: "**/*.ps1"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 4
+    showLineNumbers: true
+
 - name: xml
   pattern: "**/*.xml"
   config: &xmlconfig
