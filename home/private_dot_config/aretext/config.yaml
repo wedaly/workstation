@@ -351,6 +351,14 @@
   pattern: "**/devlogs/done.txt"
   config: *todotxt
 
+- name: nftables
+  pattern: "**/*.nft"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
+
 - name: aretext
   pattern: "**/aretext/**"
   config:
