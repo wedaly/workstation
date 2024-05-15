@@ -416,3 +416,11 @@
   config:
     syntaxLanguage: p4
     showLineNumbers: true
+
+- name: conf
+  pattern: "**/*.conf"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
