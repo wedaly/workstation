@@ -283,6 +283,10 @@
   pattern: "**/*.h"
   config: *cconfig
 
+- name: cpp
+  pattern: "**/*.cpp"
+  config: *cconfig
+
 - name: protobuf
   pattern: "**/*.proto"
   config:
@@ -410,6 +414,18 @@
   pattern: "**/dev-nonsense-blog/**/layouts/**/*.html"
   config:
     syntaxLanguage: gotemplate
+
+- name: glfighters-sdl-cpp
+  pattern: "**/GLFighters-SDL/**/*.cpp"
+  config:
+    tabExpand: false
+    tabSize: 2
+
+- name: glfighters-sdl-h
+  pattern: "**/GLFighters-SDL/**/*.h"
+  config:
+    tabExpand: false
+    tabSize: 2
 
 - name: p4
   pattern: "**/*.p4"
