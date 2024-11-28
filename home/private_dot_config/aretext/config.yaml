@@ -64,10 +64,10 @@
         shellCmd: echo -n "$FILEPATH" | tmux load-buffer -
         mode: silent
       - name: split window horizontal
-        shellCmd: tmux split-window -h "aretext -line $LINE $FILEPATH"
+        shellCmd: tmux split-window -h "aretext -line $LINE '$FILEPATH'"
         mode: silent
       - name: split window vertical
-        shellCmd: tmux split-window -v "aretext -line $LINE $FILEPATH"
+        shellCmd: tmux split-window -v "aretext -line $LINE '$FILEPATH'"
         mode: silent
       - name: grep selection or word
         shellCmd: rg "${SELECTION:-$WORD}" --vimgrep
