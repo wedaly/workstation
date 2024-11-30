@@ -11,7 +11,7 @@
   pattern: "**"
   config:
     autoIndent: false
-    hideDirectories:
+    hidePatterns:
       - "**/.git"
       - "**/.cache"
       - "**/.local"
@@ -21,6 +21,19 @@
       - "**/.kube/cache"
       - "**/_output"
       - "**/__pycache__"
+      - "**/*.o"
+      - "**/*.out"
+      - "**/*.a"
+      - "**/*.so"
+      - "**/*.png"
+      - "**/*.bmp"
+      - "**/*.jpg"
+      - "**/*.jpeg"
+      - "**/*.avif"
+      - "**/*.ico"
+      - "**/*.mpeg"
+      - "**/*.mp4"
+      - "**/*.pdf"
     syntaxLanguage: plaintext
     tabExpand: false
     tabSize: 4
