@@ -86,8 +86,8 @@ def ado_url(repo_url, git_commit, relpath, line):
 
 def ado_repo_org_project_and_name(repo_url):
     patterns = [
-        "[^@]+@.+\.com:[^/]+/([^/]+)/([^.]+)/(.+)",
-        "https://([^.]+)\.[^/]+/[^/]+/([^/]+)/_git/(.+)"
+        r"[^@]+@.+\.com:[^/]+/([^/]+)/([^.]+)/(.+)",
+        r"https://([^.]+)\.[^/]+/[^/]+/([^/]+)/_git/(.+)"
     ]
 
     for p in patterns:
