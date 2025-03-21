@@ -161,7 +161,15 @@ if [ -z "$TMUX" ]; then
     tmux attach -t "$TMUX_SESSION" || tmux new -s "$TMUX_SESSION"
 fi
 
-# bash private
-if [ -e $HOME/.bash_private ]; then
+# user specific aliases and functions
+if [ -f ~/.bash_private ]; then
     source $HOME/.bash_private
 fi
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
