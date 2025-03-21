@@ -12,8 +12,11 @@ export PROMPT_COMMAND="history -a"
 export TERMINAL=xterm
 export KEYTIMEOUT=1
 
-# prompt
+# shell prompt
 PS1='\[\033[0;34m\][\H:\w]\[\033[00m\] '
+
+# shell exit only after 10th consecutive ctrl-d or explicit "exit"
+IGNOREEOF=10
 
 {{- if eq .chezmoi.os "linux" }}
 # ls colors
