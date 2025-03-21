@@ -4,6 +4,10 @@ set -g default-shell /bin/bash
 # terminal
 set -g default-terminal "tmux"
 
+# don't exit when last pane closes
+set -g remain-on-exit on
+set-hook -g pane-died "if -F '#{&&:#{==:#{session_windows},1},#{==:#{window_panes},1}}' 'respawn-pane' 'kill-pane'"
+
 # status line
 set -g status-left ""
 set -g status-right "%Y-%m-%d %H:%M"
