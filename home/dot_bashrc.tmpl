@@ -12,6 +12,9 @@ export PROMPT_COMMAND="history -a"
 export TERMINAL=xterm
 export KEYTIMEOUT=1
 
+# don't exit on ctrl-d
+export IGNOREEOF=10
+
 # prompt
 PS1='\[\033[0;34m\][\H:\w]\[\033[00m\] '
 
