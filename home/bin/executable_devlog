@@ -112,7 +112,7 @@ def run_sync_cmd():
         git_cmd(["add", "."])
         git_cmd(["commit", "-m", "devlog sync"])
         git_cmd(["fetch", "origin"])
-        git_cmd(["rebase", "origin/master"])
+        git_cmd(["rebase", "origin/main"])
         git_cmd(["push", "origin"])
 
 
