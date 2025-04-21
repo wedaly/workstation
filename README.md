@@ -85,4 +85,4 @@ wsl.exe -d ubuntu-22.04-wsl
 1. Install [homebrew](https://docs.brew.sh/Installation)
 2. Change shell to bash: `chsh -s /bin/bash`
 3. Install chezmoi: `brew install chezmoi`
-4. Apply config: `chezmoi init http://github.com/wedaly/workstation.git && chezmoi apply`
+4. Apply config: `chezmoi init https://github.com/wedaly/workstation.git && chezmoi apply`
