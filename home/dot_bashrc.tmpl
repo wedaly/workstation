@@ -145,7 +145,7 @@ export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
-{{- else }}
+{{- else if eq .chezmoi.os "linux" }}
 # ssh keychain
 if [ -f "$HOME/.ssh/id_ed25519" ]; then
     eval $(keychain --eval --timeout 2880 --quiet id_ed25519)
