@@ -21,6 +21,7 @@
       - "**/.kube/cache"
       - "**/_output"
       - "**/__pycache__"
+      - "**/node_modules"
       - "**/*.o"
       - "**/*.out"
       - "**/*.a"
