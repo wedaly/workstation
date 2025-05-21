@@ -77,6 +77,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/bin:$(brew --prefix python)/libexec/bin:$PATH:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix python)/libexec/bin:$PATH"
 
+# homebrew bash-completion@2
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
 # pipx
 export PATH="$(pipx environment --value PIPX_BIN_DIR):$PATH"
 
@@ -133,9 +136,13 @@ alias at="aretext"
 
 # kubectl
 if command -v kubectl >/dev/null 2>&1; then
-    source <(kubectl completion bash)
     alias k=kubectl
+    source <(kubectl completion bash)
+{{- if eq .chezmoi.os "linux" }}
     complete -F __start_kubectl k
+{{- else if eq .chezmoi.os "darwin" }}
+    complete -o default -F __start_kubectl k
+{{- end }}
 fi
 
 {{- if eq .chezmoi.os "linux" }}

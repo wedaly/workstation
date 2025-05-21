@@ -1,5 +1,9 @@
 # shell
+{{- if eq .chezmoi.os "darwin" }}
+set -g default-shell /opt/homebrew/bin/bash
+{{- else }}
 set -g default-shell /bin/bash
+{{- end }}
 
 # terminal
 set -g default-terminal "tmux"

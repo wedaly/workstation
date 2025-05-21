@@ -94,6 +94,7 @@ echo "Installing system packages (brew)"
 brew install --quiet \
     coreutils \
     bash \
+    bash-completion@2 \
     vim \
     wget \
     curl \
@@ -108,18 +109,14 @@ brew install --quiet \
     python3 \
     pipx \
     gnu-sed \
-    universal-ctags
+    universal-ctags \
+    kubectl
 {{ end -}}
 
 {{- if eq .chezmoi.os "linux" }}
 echo "Docker Linux post-install"
 sudo groupadd -f docker
 sudo usermod -aG docker $USER
-
-echo "Installing kubectl node-shell"
-curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
-chmod +x ./kubectl-node_shell
-sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
 
 echo "Installing rust"
 if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
@@ -140,6 +137,11 @@ fi
 echo "Installing rust tools"
 cargo install sd
 {{- end }}
+
+echo "Installing kubectl node-shell"
+curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
+chmod +x ./kubectl-node_shell
+sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
 
 echo "Installing go"
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
