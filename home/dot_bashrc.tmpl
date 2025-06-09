@@ -168,7 +168,7 @@ fi
 
 # start tmux or attach to existing session
 TMUX_SESSION="${TMUX_SESSION:-default}"
-if [ -z "$TMUX" ]; then
+if [ -z "$TMUX" ] && [ -z "$DISABLE_TMUX" ]; then
     tmux attach -t "$TMUX_SESSION" || tmux new -s "$TMUX_SESSION"
 fi
 
