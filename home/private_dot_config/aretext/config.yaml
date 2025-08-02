@@ -13,6 +13,7 @@
     autoIndent: false
     hidePatterns:
       - "**/.git"
+      - "**/.jj"
       - "**/.cache"
       - "**/.local"
       - "**/.rustup"
