@@ -99,7 +99,6 @@ brew install --quiet \
     wget \
     curl \
     git \
-    jj \
     tmux \
     tree \
     jq \
@@ -137,7 +136,6 @@ fi
 
 echo "Installing rust tools"
 cargo install sd
-cargo install --locked --bin jj jj-cli
 {{- end }}
 
 echo "Installing kubectl node-shell"
