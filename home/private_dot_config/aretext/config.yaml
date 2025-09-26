@@ -19,6 +19,7 @@
       - "**/.rustup"
       - "**/go/pkg/mod"
       - "**/venv"
+      - "**/.venv"
       - "**/.kube/cache"
       - "**/_output"
       - "**/__pycache__"
