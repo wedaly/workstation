@@ -7,7 +7,7 @@ GO_VERSION=1.24.3
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
     GO_SHA256SUM=64a3fa22142f627e78fac3018ce3d4aeace68b743eff0afda8aae0411df5e4fb
 {{- end }}
-RUST_VERSION=1.87.0
+RUST_VERSION=1.90.0
 KUBERNETES_VERSION=1.32
 
 {{ if eq .chezmoi.os "linux" -}}
