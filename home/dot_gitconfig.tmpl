@@ -9,6 +9,8 @@
 [push]
     autoSetupRemote = true
 {{ if .gitconfig.signingKey }}
+[gpg]
+    format = ssh
 [commit]
     gpgsign = true
 [tag]
