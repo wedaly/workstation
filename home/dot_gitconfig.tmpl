@@ -1,21 +1,24 @@
 [user]
-	name = {{ .gitconfig.name }}
-	email = {{ .gitconfig.email }}
+    name = {{ .gitconfig.name }}
+    email = {{ .gitconfig.email }}
+    {{ if .gitconfig.signingKey }}signingkey = {{ .githconfig.signingKey }}{{ end }}
 [core]
-	excludesfile = ~/.gitignore
-{{ if .gpg.key }}	signingkey = {{ .gpg.key }}{{ end }}
+    excludesfile = ~/.gitignore
 [pull]
-	ff = only
+    ff = only
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
+{{ if .gitconfig.signingKey }}
 [commit]
-	gpgsign = {{ if .gpg.key }}true{{ else }}false{{ end }}
+    gpgsign = true
 [tag]
-	gpgsign = {{ if .gpg.key }}true{{ else }}false{{ end }}
+    gpgsign = true
+    forceSignAnnotated = true
+{{ end }}
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [diff]
-	algorithm = histogram
+    algorithm = histogram
 [merge]
     conflictstyle = diff3
 [fetch]

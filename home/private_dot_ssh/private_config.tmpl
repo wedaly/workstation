@@ -1,6 +1,10 @@
-{{- if .gpg.key }}
-Match host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"
+{{- if .gitconfig.useFido2AuthKey }}
+# https://wiki.archlinux.org/title/SSH_keys#agent_refused_operation
+Host *
+    IdentityAgent none
+    IdentitiesOnly yes
 {{- else if eq .chezmoi.os "darwin" }}
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=mac
 Host github.com
   AddKeysToAgent yes
   UseKeychain yes
