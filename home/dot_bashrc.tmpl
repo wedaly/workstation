@@ -157,7 +157,7 @@ export MOZ_ENABLE_WAYLAND=1
 
 {{- if eq .chezmoi.os "linux" }}
 # ssh keychain
-for key in "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ed25519_sk"; do
+for key in "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_rsa" "$HOME/.ssh/id_ed25519_sk" "$HOME/.ssh/id_ed25519_sk_rk_sign"; do
     if [ -f "$key" ]; then
         eval $(keychain --eval --timeout 2880 --quiet "$(basename "$key")")
     fi
