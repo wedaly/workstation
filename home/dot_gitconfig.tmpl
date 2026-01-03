@@ -11,6 +11,8 @@
 {{ if .gitconfig.signingKey }}
 [gpg]
     format = ssh
+[gpg.ssh]
+    allowedSignersFile = "~/.config/git_allowed_signers"
 [commit]
     gpgsign = true
 [tag]
