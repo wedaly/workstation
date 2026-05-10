@@ -1,10 +1,40 @@
 #!/usr/bin/env bash
 
+have() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+copy_linux() {
+  if have wl-copy; then
+    exec wl-copy
+  fi
+
+  if have tmux; then
+    exec tmux load-buffer -
+  fi
+
+  printf 'system-clipboard: neither wl-copy nor tmux is available\n' >&2
+  exit 1
+}
+
+paste_linux() {
+  if have wl-paste; then
+    exec wl-paste --no-newline
+  fi
+
+  if have tmux; then
+    exec tmux save-buffer -
+  fi
+
+  printf 'system-clipboard: neither wl-paste nor tmux is available\n' >&2
+  exit 1
+}
+
 case "${1-}:${OSTYPE}" in
   copy:darwin*) exec pbcopy ;;
   paste:darwin*) exec pbpaste ;;
-  copy:linux*) exec wl-copy ;;
-  paste:linux*) exec wl-paste --no-newline ;;
+  copy:linux*) copy_linux ;;
+  paste:linux*) paste_linux ;;
   copy:* | paste:*)
     printf 'system-clipboard: unsupported platform: %s\n' "$OSTYPE" >&2
     exit 1
