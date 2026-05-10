@@ -60,6 +60,11 @@
       tokenCustom6: {color: "darkgreen"}
       tokenCustom7: {color: "darkcyan"}
       tokenCustom8: {color: "darkblue"}
+    # System clipboard uses some scripts in ~/bin to work on both macOS and Linux.
+    systemClipboard:
+      copyCmd: system-clipboard copy
+      pasteCmd: system-clipboard paste
+      useByDefault: true
     menuCommands:
       - name: strip trailing whitespace
         shellCmd: sed -i 's/[ \t]*$//' "$FILEPATH"
@@ -71,15 +76,6 @@
         save: true
       - name: exec in shell
         shellCmd: printenv SELECTION | tmux load-buffer - && tmux new-window -S -n aretext-shell && tmux paste-buffer
-      - name: copy to clipboard
-        shellCmd: printenv SELECTION | tmux load-buffer -
-        mode: silent
-      - name: paste from clipboard
-        shellCmd: tmux show-buffer
-        mode: insert
-      - name: filepath copy
-        shellCmd: echo -n "$FILEPATH" | tmux load-buffer -
-        mode: silent
       - name: split window horizontal
         shellCmd: tmux split-window -h "aretext -line $LINE '$FILEPATH'"
         mode: silent

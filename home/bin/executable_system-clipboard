@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+case "${1-}:${OSTYPE}" in
+  copy:darwin*) exec pbcopy ;;
+  paste:darwin*) exec pbpaste ;;
+  copy:linux*) exec wl-copy ;;
+  paste:linux*) exec wl-paste --no-newline ;;
+  copy:* | paste:*)
+    printf 'system-clipboard: unsupported platform: %s\n' "$OSTYPE" >&2
+    exit 1
+    ;;
+  *)
+    printf 'usage: system-clipboard copy|paste\n' >&2
+    exit 2
+    ;;
+esac
