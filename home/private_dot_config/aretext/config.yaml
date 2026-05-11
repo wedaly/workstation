@@ -64,7 +64,7 @@
     systemClipboard:
       copyCmd: system-clipboard copy
       pasteCmd: system-clipboard paste
-      useByDefault: true
+      useByDefault: false
     menuCommands:
       - name: strip trailing whitespace
         shellCmd: sed -i 's/[ \t]*$//' "$FILEPATH"
