@@ -147,15 +147,24 @@ alias todo="devlog todo"
 # aretext
 alias at="aretext"
 
-# kubectl
+# kubectl (lazy)
 if command -v kubectl >/dev/null 2>&1; then
     alias k=kubectl
-    source <(kubectl completion bash)
-{{- if eq .chezmoi.os "linux" }}
-    complete -F __start_kubectl k
-{{- else if eq .chezmoi.os "darwin" }}
-    complete -o default -F __start_kubectl k
-{{- end }}
+    __platform_kubectl_complete() {
+        {{- if eq .chezmoi.os "linux" }}
+            complete -F "$1" k
+        {{- else if eq .chezmoi.os "darwin" }}
+            complete -o default -F "$1" k
+        {{- end }}
+    }
+
+    __kubectl_lazy_completion() {
+        unset -f __kubectl_lazy_completion
+        source <(kubectl completion bash)
+        __platform_kubectl_complete __start_kubectl
+        __start_kubectl "$@"
+    }
+    __platform_kubectl_complete __kubectl_lazy_completion
 fi
 
 {{- if eq .chezmoi.os "linux" }}
