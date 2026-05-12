@@ -174,11 +174,13 @@ export MOZ_ENABLE_WAYLAND=1
 
 {{- if eq .chezmoi.os "linux" }}
 # ssh keychain
-for key in "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_rsa"; do
-    if [ -f "$key" ]; then
-        eval $(keychain --eval --timeout 480 --quiet "$(basename "$key")")
-    fi
-done
+if ! ssh-add -l >/dev/null 2>&1; then
+    for key in "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_rsa"; do
+        if [ -f "$key" ]; then
+            eval $(keychain --eval --timeout 480 --quiet "$(basename "$key")")
+        fi
+    done
+fi
 {{- end }}
 
 # start tmux or attach to existing session
