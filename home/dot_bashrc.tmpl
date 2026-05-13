@@ -1,12 +1,22 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+_remove_from_path() {
+    local p=":$PATH:"
+    p="${p//:$1:/:}"
+    p="${p#:}"
+    p="${p%:}"
+    PATH="$p"
+}
+
 prepend_path() {
-    [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
+    _remove_from_path "$1"
+    export PATH="$1:$PATH"
 }
 
 append_path() {
-    [[ ":$PATH:" != *":$1:"* ]] && export PATH="$PATH:$1"
+    _remove_from_path "$1"
+    export PATH="$PATH:$1"
 }
 
 # history
