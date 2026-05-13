@@ -1,6 +1,14 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+prepend_path() {
+    [[ ":$PATH:" != *":$1:"* ]] && export PATH="$1:$PATH"
+}
+
+append_path() {
+    [[ ":$PATH:" != *":$1:"* ]] && export PATH="$PATH:$1"
+}
+
 # history
 export HISTFILESIZE=100000
 export HISTSIZE=100000
@@ -67,21 +75,21 @@ __git_complete gb _git_branch
 __git_complete gco _git_checkout
 
 # scripts
-export PATH="$HOME/bin:$PATH"
+append_path "$HOME/bin"
 
 {{- if eq .chezmoi.os "darwin" }}
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
-export PATH="/opt/homebrew/bin:$(brew --prefix python)/libexec/bin:$PATH:/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+prepend_path "/opt/homebrew/bin:$(brew --prefix python)/libexec/bin:$PATH:/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+prepend_path "$(brew --prefix python)/libexec/bin"
 
 # homebrew bash-completion@2
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # pipx
-export PATH="$(pipx environment --value PIPX_BIN_DIR):$PATH"
+prepend_path "$(pipx environment --value PIPX_BIN_DIR)"
 
 # xdg config
 export XDG_CONFIG_HOME=$HOME/.config
@@ -94,18 +102,18 @@ export PYTHONSTARTUP=~/.pythonrc
 if [ -e $HOME/.cargo/env ]; then
     source $HOME/.cargo/env # rustup
 else
-    export PATH=$PATH:$HOME/.cargo/bin
+    append_path "$HOME/.cargo/bin"
 fi
 
 # go
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+append_path "/usr/local/go/bin:$HOME/go/bin"
 
 # nodejs
 export NVM_DIR="$HOME/.config/nvm"
 if [ -d "$NVM_DIR" ]; then
     latest_node_version=$(ls "$NVM_DIR/versions/node" | sort --reverse | head -n 1)
     if [ -n latest_node_version ]; then
-        export PATH="$PATH:$NVM_DIR/versions/node/$latest_node_version/bin"
+        append_path "$NVM_DIR/versions/node/$latest_node_version/bin"
     fi
 fi
 
