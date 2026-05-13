@@ -82,7 +82,8 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
-prepend_path "/opt/homebrew/bin:$(brew --prefix python)/libexec/bin:$PATH:/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+prepend_path "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+prepend_path "/opt/homebrew/bin:$(brew --prefix python)/libexec/bin"
 prepend_path "$(brew --prefix python)/libexec/bin"
 
 # homebrew bash-completion@2
