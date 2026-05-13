@@ -102,8 +102,12 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
 # nodejs
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+if [ -d "$NVM_DIR" ]; then
+    latest_node_version=$(ls "$NVM_DIR/versions/node" | sort --reverse | head -n 1)
+    if [ -n latest_node_version ]; then
+        export PATH="$PATH:$NVM_DIR/versions/node/$latest_node_version/bin"
+    fi
+fi
 
 # fuzzy find
 export FZF_DEFAULT_COMMAND='rg --files'
