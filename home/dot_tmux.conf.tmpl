@@ -21,10 +21,12 @@ set -g renumber-windows on
 set -g history-limit 10000
 
 # keep cwd on pane split
+# use 'exec bash' to start bash with a non-login shell, which is much faster
+# and should work the same since tmux panes inherit the environment.
 unbind '"'
-bind '"' split-window -v -c '#{pane_current_path}'
+bind '"' split-window -v -c '#{pane_current_path}' 'exec bash'
 unbind %
-bind % split-window -h -c '#{pane_current_path}'
+bind % split-window -h -c '#{pane_current_path}' 'exec bash'
 
 # vim-style pane navigation
 bind h select-pane -L
