@@ -117,7 +117,8 @@ else
 fi
 
 # go
-append_path "/usr/local/go/bin:$HOME/go/bin"
+append_path "/usr/local/go/bin"
+append_path "$HOME/go/bin"
 
 # nodejs
 export NVM_DIR="$HOME/.config/nvm"
