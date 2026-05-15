@@ -99,9 +99,6 @@ prepend_path "$(brew --prefix python)/libexec/bin"
 # homebrew bash-completion@2
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
-# pipx
-prepend_path "$(pipx environment --value PIPX_BIN_DIR)"
-
 # xdg config
 export XDG_CONFIG_HOME=$HOME/.config
 {{- end }}
