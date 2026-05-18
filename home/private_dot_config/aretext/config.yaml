@@ -203,6 +203,15 @@
   pattern: "**/*.mk"
   config: *makefile
 
+- name: Dockerfile
+  pattern: "**/*Dockerfile*"
+  config:
+    syntaxLanguage: dockerfile
+    tabExpand: true
+    autoIndent: true
+    tabSize: 4
+    showLineNumbers: true
+
 - name: go
   pattern: "**/*.go"
   config:
