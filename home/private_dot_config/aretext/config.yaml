@@ -318,6 +318,10 @@
   pattern: "**/*.cpp"
   config: *cconfig
 
+- name: cuda
+  pattern: "**/*.cu"
+  config: *cconfig
+
 - name: protobuf
   pattern: "**/*.proto"
   config:
