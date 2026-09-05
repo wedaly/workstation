@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 set -e
 
-GO_VERSION=1.26.3
+GO_VERSION=1.27.1
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
-    GO_SHA256SUM=2b2cfc7148493da5e73981bffbf3353af381d5f93e789c82c79aff64962eb556
+    GO_SHA256SUM=63d339f0da5ab53635a56f2490a7984dfe12dfcff22ad749f63edaf590168445
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
-    GO_SHA256SUM=875cf54a15311eee2c99b9dd67c68c4a49351d489ab622bf2cfd28c8f2078d3c
+    GO_SHA256SUM=ee215d57e0ec269c60cc9ceca68e6bda321ba9ee5afe24f4b0988703c2d87d12
 {{- end }}
 RUST_VERSION=1.98.1
 KUBERNETES_VERSION=1.33
