@@ -475,3 +475,11 @@
     tabExpand: true
     tabSize: 2
     showLineNumbers: true
+
+- name: typst
+  pattern: "**/*.typ"
+  config:
+    autoIndent: true
+    tabExpand: true
+    tabSize: 2
+    showLineNumbers: true
