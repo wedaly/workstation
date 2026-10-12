@@ -4,15 +4,17 @@ allow_login_shell = false
 model = "gpt-5.6-luna"
 model_reasoning_effort = "medium"
 model_verbosity = "low"
+default_permissions = "protected-workspace"
 
 [features]
 plugins = false
 hooks = false
 
-[permissions.filesystem]
-deny_read = [
-  "~/.aws",
-  "~/.ssh",
-  "~/.kube",
-  "~/.docker",
-]
+[permissions.protected-workspace]
+extends = ":workspace"
+
+[permissions.protected-workspace.filesystem]
+"~/.aws" = "deny"
+"~/.ssh" = "deny"
+"~/.kube" = "deny"
+"~/.docker" = "deny"
