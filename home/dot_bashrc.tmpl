@@ -126,6 +126,9 @@ if [ -d "$NVM_DIR" ]; then
     fi
 fi
 
+# local binaries
+append_path "$HOME/.local/bin"
+
 # fuzzy find
 export FZF_DEFAULT_COMMAND='rg --files'
 
