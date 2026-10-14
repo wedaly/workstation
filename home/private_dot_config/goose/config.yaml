@@ -11,7 +11,7 @@ extensions:
     name: stickshift
     description: Stickshift MCP
     cmd: stickshift-mcp
-    args: []
+    args: ["-root-dir=~/repos"]
     envs: {}
     env_keys: []
     timeout: 300
