@@ -1,7 +1,8 @@
-# General configuration.
+# General configuration
 GOOSE_MODE: auto
 GOOSE_CLI_THEME: dark
 GOOSE_TELEMETRY_ENABLED: false
+GOOSE_CLI_MIN_PRIORITY: 0.8
 
 extensions:
   # https://github.com/wedaly/stickshift
@@ -11,7 +12,7 @@ extensions:
     name: stickshift
     description: Stickshift MCP
     cmd: stickshift-mcp
-    args: ["-root-dir=~/repos"]
+    args: []
     envs: {}
     env_keys: []
     timeout: 300
@@ -24,7 +25,7 @@ extensions:
     description: Load knowledge and delegate tasks to subagents
     display_name: Summon
     bundled: true
-  # All other built-in extensions are disabled.
+  # All other built-in extensions are disabled
   orchestrator:
     enabled: false
     type: platform
@@ -116,5 +117,5 @@ active_provider: openrouter
 providers:
   openrouter:
     enabled: true
-    model: qwen/qwen3-coder
+    model: qwen/qwen3-coder-30b-a3b-instruct
     configured: true
