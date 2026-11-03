@@ -160,6 +160,10 @@
   pattern: "**/.bash_private"
   config: *shellConfig
 
+- name: dot_env
+  pattern: "**/*.env"
+  config: *shellConfig
+
 - name: powershell
   pattern: "**/*.ps1"
   config:
