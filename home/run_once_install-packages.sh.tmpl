@@ -154,7 +154,7 @@ else
     GO_OS={{ .chezmoi.os }}
     GO_ARCH={{ .chezmoi.arch }}
     GO_TARBALL="go${GO_VERSION}.${GO_OS}-${GO_ARCH}.tar.gz"
-    (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/${GO_TARBALL} && echo "$GO_SHA256SUM  $GO_TARBALL" | sha256sum --check --status)
+    (cd /tmp && rm -rf "$GO_TARBALL" && wget https://go.dev/dl/${GO_TARBALL} && echo "$GO_SHA256SUM  $GO_TARBALL" | shasum -a 256 --check --status)
     sudo rm -rf /usr/local/go
     sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
     export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
