@@ -1,11 +1,9 @@
 {{- $gitConfigName := promptString "[gitconfig] name" -}}
 {{- $gitConfigEmail := promptString "[gitconfig] email" -}}
-{{- $gitConfigUseWindowsGitCredentialManager := promptBool "[gitconfig] use Windows git credential manager? [y/n]" -}}
 {{- $gitSigningKey := promptString "[gitconfig] ssh pub key for signing commits/tags" -}}
 [data.gitconfig]
 	name = {{ $gitConfigName | quote }}
 	email = {{ $gitConfigEmail | quote }}
-    useWindowsGitCredentialManager = {{ $gitConfigUseWindowsGitCredentialManager }}
     signingKey = {{ $gitSigningKey | quote }}
 
 {{ $supportBidi := promptBool "[bidi] enable bidi isolate? [y/n]" -}}
