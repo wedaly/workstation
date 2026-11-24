@@ -27,32 +27,6 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-## Ubuntu on WSL2
-
-1. Download an image like `ubuntu-22.04-server-cloudimg-amd64-root.tar.xz` from [https://cloud-images.ubuntu.com/releases/](https://cloud-images.ubuntu.com/releases/).
-
-2. Decompress the `.xz` file.
-
-3. In Powershell, create a new WSL distribution:
-```
-wsl.exe --import ubuntu-22.04-wsl .\Documents\ubuntu-22.04-wsl .\Downloads\ubuntu-22.04-server-cloudimg-amd64-root.tar
-```
-
-3. Run the bootstrap script:
-```
-wsl.exe -d ubuntu-22.04-wsl
-cd /tmp
-curl https://raw.githubusercontent.com/wedaly/workstation/main/bootstrap/wsl-ubuntu.sh > bootstrap.sh
-chmod +x bootstrap.sh
-./bootstrap.sh
-```
-
-4. Restart:
-```
-wsl.exe --shutdown ubuntu-22.04-wsl
-wsl.exe -d ubuntu-22.04-wsl
-```
-
 ## macOS
 
 1. Install [homebrew](https://docs.brew.sh/Installation)
