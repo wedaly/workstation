@@ -1,3 +1,4 @@
+{{ if .addons.tmux }}
 # shell
 {{- if eq .chezmoi.os "darwin" }}
 set -g default-shell /opt/homebrew/bin/bash
@@ -65,3 +66,4 @@ set -sg escape-time 5
 # https://github.com/tmux/tmux/issues/3262
 set -as terminal-overrides ',xterm*:Bidi'
 {{- end }}
+{{ end }}
