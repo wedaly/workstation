@@ -77,10 +77,10 @@ brew install --quiet \
     universal-ctags
 {{ end -}}
 
-{{- if eq .chezmoi.os "linux" }}
 INSTALL_DIR=$(mktemp -d)
 trap 'rm -rf "$INSTALL_DIR"' EXIT HUP INT TERM
 
+{{- if eq .chezmoi.os "linux" }}
 echo "Installing sd"
 SD_VERSION=1.1.0
 {{ if eq .chezmoi.arch "amd64" -}}
@@ -114,4 +114,5 @@ else
 fi
 
 echo "Installing aretext"
-(cd /tmp && rm -rf aretext && git clone https://github.com/aretext/aretext && cd aretext && make install)
+git clone https://github.com/aretext/aretext "$INSTALL_DIR/aretext"
+(cd "$INSTALL_DIR/aretext" && make install)
