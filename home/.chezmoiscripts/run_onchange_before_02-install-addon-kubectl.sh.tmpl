@@ -1,1 +1,36 @@
-# todo: install kubectl
+{{- if .addons.kubectl -}}
+#!/usr/bin/env sh
+set -e
+
+KUBERNETES_VERSION=1.36
+
+{{ if eq .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+echo "Installing kubectl (apt)"
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/deb/Release.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt update
+sudo apt install kubectl
+
+{{ else if eq .chezmoi.osRelease.id "fedora" -}}
+echo "Installing kubectl (dnf)"
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/rpm/repodata/repomd.xml.key
+EOF
+sudo yum install kubectl
+{{ end -}}
+{{ else if eq .chezmoi.os "darwin" -}}
+brew install --quiet kubectl
+{{ end -}}
+
+echo "Installing kubectl node-shell"
+curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
+chmod +x ./kubectl-node_shell
+sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
+{{ end -}}

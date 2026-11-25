@@ -9,8 +9,6 @@ GO_VERSION=1.27.4
 {{- else if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
     GO_SHA256SUM=91a44a2b8a716600ad94a4f143e156116620db8828086a6e3602291be9bd0bb4
 {{- end }}
-RUST_VERSION=1.98.1
-KUBERNETES_VERSION=1.36
 
 {{ if eq .chezmoi.os "linux" -}}
 {{ if eq .chezmoi.osRelease.id "ubuntu" -}}
@@ -21,7 +19,6 @@ sudo apt install \
     wget \
     curl \
     git \
-    tmux \
     keychain \
     tree \
     jq \
@@ -37,23 +34,6 @@ sudo apt install \
     libssl-dev \
     pkg-config
 
-echo "Installing docker (apt)"
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-echo "Installing kubectl (apt)"
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/deb/Release.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt update
-sudo apt install kubectl
-
 {{ else if eq .chezmoi.osRelease.id "fedora" -}}
 echo "Installing system packages (dnf)"
 sudo dnf update
@@ -64,7 +44,6 @@ sudo dnf install \
     git \
     make \
     gcc \
-    tmux \
     tree \
     jq \
     ripgrep \
@@ -75,23 +54,6 @@ sudo dnf install \
     keychain \
     openssl-devel
 
-echo "Installing docker (dnf)"
-sudo dnf install dnf-plugins-core
-sudo dnf-3 config-manager --add-repo=https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo systemctl enable docker
-sudo systemctl start docker
-
-echo "Installing kubectl (dnf)"
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v${KUBERNETES_VERSION}/rpm/repodata/repomd.xml.key
-EOF
-sudo yum install kubectl
 {{ end -}}
 
 {{ else if eq .chezmoi.os "darwin" -}}
@@ -104,7 +66,6 @@ brew install --quiet \
     wget \
     curl \
     git \
-    tmux \
     tree \
     jq \
     sd \
@@ -113,36 +74,31 @@ brew install --quiet \
     gnupg \
     python3 \
     gnu-sed \
-    universal-ctags \
-    kubectl
+    universal-ctags
 {{ end -}}
 
 {{- if eq .chezmoi.os "linux" }}
-echo "Installing rust"
-if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
-    curl https://keybase.io/rust/pgp_keys.asc | gpg --import
-fi
-if (which rustc && rustc --version | cut -d ' ' -f 2 | grep $RUST_VERSION); then
-    echo "rust v$RUST_VERSION is already installed"
-else
-    {{ if eq .chezmoi.arch "arm64" }}RUST_ARCH="aarch64"{{ else }}RUST_ARCH="x86_64"{{ end }}
-    RUST_TARBALL="rust-${RUST_VERSION}-${RUST_ARCH}-unknown-linux-gnu.tar.gz"
-    RUST_TARBALL_SIG="${RUST_TARBALL}.asc"
-    RUST_TARBALL_URL="https://static.rust-lang.org/dist/${RUST_TARBALL}"
-    RUST_TARBALL_SIG_URL="https://static.rust-lang.org/dist/${RUST_TARBALL_SIG}"
-    RUST_INSTALL_SCRIPT="/tmp/$(basename $RUST_TARBALL .tar.gz)/install.sh"
-    (cd /tmp && rm -rf "$RUST_TARBALL" && rm -rf $RUST_TARBALL_SIG && wget $RUST_TARBALL_URL && wget $RUST_TARBALL_SIG_URL && gpg --verify $RUST_TARBALL_SIG && tar -xvf "$RUST_TARBALL")
-    sudo bash "$RUST_INSTALL_SCRIPT"
-fi
+INSTALL_DIR=$(mktemp -d)
+trap 'rm -rf "$INSTALL_DIR"' EXIT HUP INT TERM
 
-echo "Installing rust tools"
-cargo install sd
-{{- end }}
-
-echo "Installing kubectl node-shell"
-curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
-chmod +x ./kubectl-node_shell
-sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
+echo "Installing sd"
+SD_VERSION=1.1.0
+{{ if eq .chezmoi.arch "amd64" -}}
+SD_TARGET=x86_64-unknown-linux-musl
+SD_SHA256SUM=02f00f4777d43e8e95b7b8d49e1a0d6e502fed4b8e79c1c8b8063857a30caa2e
+{{ else if eq .chezmoi.arch "arm64" -}}
+SD_TARGET=aarch64-unknown-linux-musl
+SD_SHA256SUM=ec8c93c0533ff21f4851d11566808d4082544baf063d9b96ea77c27e98b7cd99
+{{ else -}}
+echo "Unsupported Linux architecture: {{ .chezmoi.arch }}" >&2
+exit 1
+{{ end -}}
+SD_TARBALL="sd-v${SD_VERSION}-${SD_TARGET}.tar.gz"
+curl -fsSL "https://github.com/chmln/sd/releases/download/v${SD_VERSION}/${SD_TARBALL}" -o "$INSTALL_DIR/$SD_TARBALL"
+(cd "$INSTALL_DIR" && echo "$SD_SHA256SUM  $SD_TARBALL" | sha256sum --check --status)
+tar -xzf "$INSTALL_DIR/$SD_TARBALL" -C "$INSTALL_DIR"
+sudo install -m 0755 "$INSTALL_DIR/sd-v${SD_VERSION}-${SD_TARGET}/sd" /usr/local/bin/sd
+{{ end -}}
 
 echo "Installing go"
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
@@ -156,13 +112,6 @@ else
     sudo tar -C /usr/local -xzf "/tmp/$GO_TARBALL"
     export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 fi
-
-echo "Installing go devtools"
-go install golang.org/x/tools/cmd/goimports@latest
-go install github.com/go-delve/delve/cmd/dlv@latest
-go install github.com/shurcooL/markdownfmt@latest
-go install honnef.co/go/tools/cmd/staticcheck@latest
-go install github.com/wedaly/gospelunk@latest
 
 echo "Installing aretext"
 (cd /tmp && rm -rf aretext && git clone https://github.com/aretext/aretext && cd aretext && make install)

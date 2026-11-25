@@ -9,7 +9,7 @@
 [data.addons]
 	tmux = {{ promptBool "[addons] install tmux? [y/n]" }}
 	kubectl = {{ promptBool "[addons] install kubectl? [y/n]" }}
-	docker = {{ promptBool "[addons] install docker? [y/n]" }}
+	docker = {{ if eq .chezmoi.os "darwin" }}false{{ else }}{{ promptBool "[addons] install docker? [y/n]" }}{{ end }}
 	godev = {{ promptBool "[addons] install golang dev tools? [y/n]" }}
 	rust = {{ promptBool "[addons] install rust? [y/n]" }}
 

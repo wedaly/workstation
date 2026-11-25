@@ -1,0 +1,26 @@
+{{- if .addons.rust -}}
+#!/usr/bin/env sh
+set -e
+
+{{- if eq .chezmoi.os "linux" }}
+RUST_VERSION=1.98.1
+
+echo "Installing rust"
+if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
+    curl https://keybase.io/rust/pgp_keys.asc | gpg --import
+fi
+if (which rustc && rustc --version | cut -d ' ' -f 2 | grep $RUST_VERSION); then
+    echo "rust v$RUST_VERSION is already installed"
+else
+    {{ if eq .chezmoi.arch "arm64" }}RUST_ARCH="aarch64"{{ else }}RUST_ARCH="x86_64"{{ end }}
+    RUST_TARBALL="rust-${RUST_VERSION}-${RUST_ARCH}-unknown-linux-gnu.tar.gz"
+    RUST_TARBALL_SIG="${RUST_TARBALL}.asc"
+    RUST_TARBALL_URL="https://static.rust-lang.org/dist/${RUST_TARBALL}"
+    RUST_TARBALL_SIG_URL="https://static.rust-lang.org/dist/${RUST_TARBALL_SIG}"
+    RUST_INSTALL_SCRIPT="/tmp/$(basename $RUST_TARBALL .tar.gz)/install.sh"
+    (cd /tmp && rm -rf "$RUST_TARBALL" && rm -rf $RUST_TARBALL_SIG && wget $RUST_TARBALL_URL && wget $RUST_TARBALL_SIG_URL && gpg --verify $RUST_TARBALL_SIG && tar -xvf "$RUST_TARBALL")
+    sudo bash "$RUST_INSTALL_SCRIPT"
+fi
+
+{{- end }}
+{{ end -}}

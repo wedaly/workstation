@@ -1,0 +1,13 @@
+{{- if .addons.godev -}}
+#!/usr/bin/env sh
+set -e
+
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+echo "Installing go devtools"
+go install golang.org/x/tools/cmd/goimports@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install github.com/shurcooL/markdownfmt@latest
+go install honnef.co/go/tools/cmd/staticcheck@latest
+go install github.com/wedaly/gospelunk@latest
+{{ end -}}
