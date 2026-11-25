@@ -136,17 +136,7 @@ dir () {
     cd $(find . -type d ! -path "*/.git/*" 2> /dev/null | fzf --reverse || pwd)
 }
 
-repo() {
-    cd $(find $HOME/repos -maxdepth 5 -type d -name ".git" | xargs -I{} dirname {} | fzf --reverse || pwd)
-}
-
-alias r=repo
-alias repos=repo
-
-adhoc () {
-    cd $(find $HOME/adhoc -mindepth 1 -maxdepth 1 -type d | fzf --reverse || pwd)
-}
-
+{{- if .addons.godev }}
 # gospelunk
 gofind () {
     gospelunk list -t {{"$'{{ range .Defs }}-line={{.Line}} {{.Path|RelPath}} {{.Name}}\\n{{ end }}'"}} $@ \
@@ -154,6 +144,7 @@ gofind () {
     | cut -d " " -f 1-2 \
     | xargs -r aretext
 }
+{{- end }}
 
 # devlog
 alias dle="devlog edit"
@@ -163,6 +154,7 @@ alias todo="devlog todo"
 # aretext
 alias at="aretext"
 
+{{- if .addons.kubectl }}
 # kubectl (lazy)
 if command -v kubectl >/dev/null 2>&1; then
     alias k=kubectl
@@ -182,10 +174,6 @@ if command -v kubectl >/dev/null 2>&1; then
     }
     __platform_kubectl_complete __kubectl_lazy_completion
 fi
-
-{{- if eq .chezmoi.os "linux" }}
-# firefox / wayland
-export MOZ_ENABLE_WAYLAND=1
 {{- end }}
 
 {{- if eq .chezmoi.os "linux" }}
@@ -199,11 +187,13 @@ if ! ssh-add -l >/dev/null 2>&1; then
 fi
 {{- end }}
 
+{{- if .addons.tmux }}
 # start tmux or attach to existing session
 TMUX_SESSION="${TMUX_SESSION:-default}"
 if [ -z "$TMUX" ] && [ -z "$DISABLE_TMUX" ]; then
     tmux attach -t "$TMUX_SESSION" || tmux new -s "$TMUX_SESSION"
 fi
+{{- end }}
 
 # user specific aliases and functions
 if [ -f ~/.bash_private ]; then
