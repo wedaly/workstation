@@ -6,6 +6,13 @@
 	email = {{ $gitConfigEmail | quote }}
     signingKey = {{ $gitSigningKey | quote }}
 
+[data.addons]
+	tmux = {{ promptBool "[addons] install tmux? [y/n]" }}
+	kubectl = {{ promptBool "[addons] install kubectl? [y/n]" }}
+	docker = {{ promptBool "[addons] install docker? [y/n]" }}
+	golang = {{ promptBool "[addons] install golang dev tools? [y/n]" }}
+	rust = {{ promptBool "[addons] install rust? [y/n]" }}
+
 {{ $supportBidi := promptBool "[bidi] enable bidi isolate? [y/n]" -}}
 [data.bidi]
 	enabled = {{ $supportBidi }}
