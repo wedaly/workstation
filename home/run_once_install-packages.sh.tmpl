@@ -118,10 +118,6 @@ brew install --quiet \
 {{ end -}}
 
 {{- if eq .chezmoi.os "linux" }}
-echo "Docker Linux post-install"
-sudo groupadd -f docker
-sudo usermod -aG docker $USER
-
 echo "Installing rust"
 if ! (gpg --list-keys | grep "0x85AB96E6FA1BE5FE"); then
     curl https://keybase.io/rust/pgp_keys.asc | gpg --import
