@@ -139,11 +139,6 @@ echo "Installing rust tools"
 cargo install sd
 {{- end }}
 
-echo "Installing kubectl node-shell"
-curl -LO https://github.com/kvaps/kubectl-node-shell/raw/master/kubectl-node_shell
-chmod +x ./kubectl-node_shell
-sudo mv ./kubectl-node_shell /usr/local/bin/kubectl-node_shell
-
 echo "Installing go"
 if (which go && go version | cut -d ' ' -f 3 | grep "go$GO_VERSION"); then
     echo "go v$GO_VERSION is already installed"
