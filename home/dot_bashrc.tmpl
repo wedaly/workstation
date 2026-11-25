@@ -184,11 +184,6 @@ if command -v kubectl >/dev/null 2>&1; then
 fi
 
 {{- if eq .chezmoi.os "linux" }}
-# firefox / wayland
-export MOZ_ENABLE_WAYLAND=1
-{{- end }}
-
-{{- if eq .chezmoi.os "linux" }}
 # ssh keychain
 if ! ssh-add -l >/dev/null 2>&1; then
     for key in "$HOME/.ssh/id_ed25519" "$HOME/.ssh/id_rsa"; do
