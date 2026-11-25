@@ -33,3 +33,19 @@ chmod +x bootstrap.sh
 2. Change shell to bash: `chsh -s /bin/bash`
 3. Install chezmoi: `brew install chezmoi`
 4. Apply config: `chezmoi init https://github.com/wedaly/workstation.git && chezmoi apply`
+
+## podman
+
+Podman needs some additional config for running rootless:
+
+```
+# Allow allocating a range of uids
+sudo usermod --add-subuids 100000-165535 \
+             --add-subgids 100000-165535 "$USER"
+
+# Update for change to /etc/subuid
+podman system migrate
+
+# Turn on a socket so the compose backend can talk to podman
+systemctl --user enable --now podman.socket
+```
