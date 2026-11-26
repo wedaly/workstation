@@ -192,6 +192,9 @@ if ! ssh-add -l >/dev/null 2>&1; then
         fi
     done
 fi
+
+# gpg-agent
+export GPG_TTY=$(tty)
 {{- end }}
 
 # start tmux or attach to existing session
